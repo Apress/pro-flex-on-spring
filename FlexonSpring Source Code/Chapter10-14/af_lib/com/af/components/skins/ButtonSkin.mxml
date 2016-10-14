@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	creationComplete="init()" 
+	xmlns:effects="com.af.components.effects.*"
+	verticalAlign="middle" horizontalAlign="center"
+	width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Button;
+			import mx.core.UITextField;
+			
+			use namespace mx_internal;
+			
+			[Bindable]
+			private var textField:UITextField;
+			
+			private function init():void
+			{
+				var button:Button = (parent as Button);
+				//textField = button.getTextField();
+				filters = [bevel, dropshadow];
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<!-- States .............................................. -->
+	<mx:states>
+		<mx:State name="up">
+			<mx:SetProperty target="{textField}" name="filters" value="{[textShadow]}"/> 
+        </mx:State>
+        
+        <mx:State name="down">
+       		<mx:SetProperty target="{this}" name="filters" value="{[bevelDown]}"/>
+       		<mx:SetProperty target="{glow}" name="color" value="{0x2F99D9}"/>
+       		<mx:SetProperty target="{textField}" name="filters" value="{[glow]}"/>
+        </mx:State>
+ 
+        <mx:State name="over">
+        	<mx:SetProperty target="{textField}" name="filters" value="{[glow]}"/>
+        	<mx:SetProperty target="{bevel}" name="highlightAlpha" value="0.8"/>
+        </mx:State>
+    </mx:states>
+    
+    
+    <!-- Filters .............................................. -->
+	<mx:DropShadowFilter id="dropshadow" alpha="0.5" quality="3" blurX="6" blurY="6"/>
+	<mx:BevelFilter id="bevel" angle="90" highlightColor="0xffffff" 
+		shadowAlpha="0" strength="3" quality="3" distance="24" highlightAlpha="0.4"/>
+	<mx:BevelFilter id="bevelDown" type="inner" angle="245" shadowAlpha="0.4" 
+		highlightAlpha="0.4" distance="8" blurX="10" blurY="10"  quality="4"/>
+	<mx:DropShadowFilter id="textShadow" alpha="0.5" quality="2" 
+		distance="2" blurX="2" blurY="2"  />
+	<mx:GlowFilter id="glow" color="#2F99D9" alpha="0.8" />
+	
+	
+	<!-- Transitions .............................................. -->
+	<mx:transitions>
+		<mx:Transition id="toOver" fromState="*" toState="over">
+			<effects:AnimateColor target="{this}" property="backgroundColor" 
+				isStyle="true"  toValue="0xFFFFFF"  duration="300" />
+		</mx:Transition>
+		<mx:Transition id="toUp" fromState="*" toState="up">
+			<effects:AnimateColor target="{this}" property="backgroundColor" 
+				isStyle="true"  toValue="0xEAEAEA"  duration="300" />
+		</mx:Transition>
+		<mx:Transition id="toDown" fromState="*" toState="down">
+			<effects:AnimateColor target="{this}" property="backgroundColor" 
+				isStyle="true"  toValue="0xFFFFFF"  duration="300" />
+		</mx:Transition>
+	</mx:transitions>
+	
+	<!-- Background Images .............................................. -->
+	<!--mx:Image source="@Embed(source='assets/images/dec_left.png')" 
+		left="5" verticalCenter="0"/>
+	<mx:Image source="@Embed(source='assets/images/dec_right.png')" 
+		right="5" verticalCenter="0"/-->
+</mx:VBox>

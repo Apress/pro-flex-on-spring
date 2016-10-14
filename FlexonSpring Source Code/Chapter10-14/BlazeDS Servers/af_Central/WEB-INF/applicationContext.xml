@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       
+xmlns:tx="http://www.springframework.org/schema/tx" 
+xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/tx 
+      http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- Maps request paths at /messagebroker to the BlazeDS MessageBroker -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <value>
+                /*=mySpringManagedMessageBroker
+            </value>
+        </property>
+    </bean>
+
+	
+      <!-- Dispatches requests mapped to a MessageBroker -->
+	<bean class="org.springframework.flex.messaging.servlet.MessageBrokerHandlerAdapter"/>
+
+	<!-- Bootstraps and exposes the BlazeDS MessageBroker -->
+	<bean id="mySpringManagedMessageBroker" class="org.springframework.flex.messaging.MessageBrokerFactoryBean" />	
+    
+
+    <!-- START Load application properties -->
+    <bean id="propertyConfigurer"
+       class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       <property name="location"><value>WEB-INF/application.properties</value></property>
+    </bean>
+    <!-- END Load application properties -->
+
+    <!-- START HIBERNATE CONFIG -->
+    <!-- Configure SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+      <property name="annotatedClasses">
+            <list>
+                  <value>com.af.core.domain.Address</value>
+                  <value>com.af.core.domain.Client</value>
+                  <value>com.af.core.domain.ClientContacts</value>
+                  <value>com.af.core.domain.ClientLinks</value>
+                  <value>com.af.core.domain.InvoiceDetails</value>
+                  <value>com.af.core.domain.Invoices</value>
+                  <value>com.af.core.domain.Issues</value>
+                  <value>com.af.core.domain.Media</value>
+                  <value>com.af.core.domain.Phone</value>
+                  <value>com.af.core.domain.ProjectRisks</value>
+                  <value>com.af.core.domain.Projects</value>
+                  <value>com.af.core.domain.ProjectTasks</value>
+            </list>
+      </property>
+
+      <property name="hibernateProperties">
+            <props>
+                  <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                  <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                        <prop key="hibernate.transaction.factory_class">${hibernate.transaction.factory_class}</prop>
+                        <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                        <prop key="hibernate.c3p0.min_size">${hibernate.c3p0.min_size}</prop>
+                        <prop key="hibernate.c3p0.max_size">${hibernate.c3p0.max_size}</prop>
+                        <prop key="hibernate.c3p0.timeout">${hibernate.c3p0.timeout}</prop>
+                        <prop key="hibernate.c3p0.max_statements">${hibernate.c3p0.max_statements}</prop>
+                        <prop key="hibernate.connection.driver_class">${jdbc.driverClassName}</prop>
+                        <prop key="hibernate.connection.url">${jdbc.url}</prop>
+                        <prop key="hibernate.connection.username">${jdbc.username}</prop>
+                        <prop key="hibernate.connection.password">${jdbc.password}</prop>
+            </props>
+      </property>
+    </bean>
+
+    <!-- enable the configuration of transactional behavior based on annotations -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+      <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean> 
+
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
+
+    <!-- START Expose the service beans for BlazeDS remoting -->
+    <bean id="clientService" class="org.springframework.flex.messaging.remoting.FlexRemotingServiceExporter">
+        <property name="messageBroker" ref="mySpringManagedMessageBroker"/>
+        <property name="service" ref="clientServiceBean"/>
+    </bean>
+
+    <bean id="projectService" class="org.springframework.flex.messaging.remoting.FlexRemotingServiceExporter">
+        <property name="messageBroker" ref="mySpringManagedMessageBroker"/>
+        <property name="service" ref="projectServiceBean"/>
+    </bean>
+
+    <bean id="invoiceService" class="org.springframework.flex.messaging.remoting.FlexRemotingServiceExporter">
+        <property name="messageBroker" ref="mySpringManagedMessageBroker"/>
+        <property name="service" ref="invoiceServiceBean"/>
+    </bean>
+
+    <bean id="mediaService" class="org.springframework.flex.messaging.remoting.FlexRemotingServiceExporter">
+        <property name="messageBroker" ref="mySpringManagedMessageBroker"/>
+        <property name="service" ref="mediaServiceBean"/>
+    </bean>    
+
+    <!-- END Expose the service beans for BlazeDS remoting -->
+
+    <!-- START Spring Bean and DAO configuration -->
+    <bean id="clientServiceBean" class="com.af.core.services.ClientServiceImpl">
+      <property name="clientDao"><ref bean="clientDao"/></property>
+    </bean>
+
+    <bean id="clientDao" class="com.af.core.dao.hibernate.ClientDaoImpl">
+      <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="projectServiceBean" class="com.af.core.services.ProjectServiceImpl">
+      <property name="projectDao"><ref bean="projectDao"/></property>
+    </bean>
+
+    <bean id="projectDao" class="com.af.core.dao.hibernate.ProjectDaoImpl">
+      <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="mediaServiceBean" class="com.af.core.services.MediaServiceImpl">
+      <property name="mediaDao"><ref bean="mediaDao"/></property>
+    </bean>
+
+    <bean id="mediaDao" class="com.af.core.dao.hibernate.MediaDaoImpl">
+      <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="invoiceServiceBean" class="com.af.core.services.InvoiceServiceImpl">
+      <property name="invoiceDao"><ref bean="invoiceDao"/></property>
+    </bean>
+
+    <bean id="invoiceDao" class="com.af.core.dao.hibernate.InvoiceDaoImpl">
+      <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- END Spring Bean and DAO configuration -->
+</beans>

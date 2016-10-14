@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- Chapter 4 - Listing 4.2 -->
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:local="*">
+
+	<mx:Style source="assets/css/style.css"/>
+	
+	<local:ButtonComponent />
+
+</mx:Application>
+

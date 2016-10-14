@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="vertical" backgroundColor="white"	>
+
+	<mx:HTTPService id="getStatsService" 
+		url="http://localhost:8080/SpringMVC/playerStats.htm"
+		resultFormat="e4x" method="POST"
+		result="getStatsResult(event)" fault="faultHandler(event)"/>
+		
+
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+	   	
+		   	public function getStats() : void
+		   	{
+		      	var params:Object = new Object();
+				
+				params.firstName = firstName.text;
+				params.lastName = lastName.text;
+
+				getStatsService.send(params);
+		   	}
+			public function getStatsResult(event:ResultEvent):void
+			{
+				Alert.show("Result = " + event.result);
+			}
+			public function faultHandler(event:FaultEvent):void
+			{
+				Alert.show("Fault = " + event.fault);
+			}
+		]]>
+	</mx:Script>
+    
+    <mx:Panel id="mainPanel" title="Flex SpringMVC Example"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center">
+
+	 <mx:Form>
+    
+        <mx:FormItem label="First Name: ">
+            <mx:TextInput id="firstName"/>
+        </mx:FormItem>
+
+        <mx:FormItem label="Last Name: ">
+            <mx:TextInput id="lastName"/>
+        </mx:FormItem>
+        
+        <mx:Button id="getStatsBtn" label="Get Stats" click="getStats();" />
+        
+    </mx:Form>
+   </mx:Panel>
+</mx:Application>

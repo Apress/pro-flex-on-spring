@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- Chapter 4 - Listing 4.9 -->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+
+   <mx:Script>
+        <![CDATA[
+            import mx.validators.DateValidator;
+
+            private var validator:DateValidator = new DateValidator();
+
+            private function doValidation():void 
+            {
+                validator.allowedFormatChars = "/-"; 
+                validator.listener=myDate;
+                validator.validate(myDate.text);
+            }
+        ]]>
+    </mx:Script>
+	
+	<mx:Panel title="Validation through ActionScript"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center">
+
+		<mx:Label text="Enter a date to be validated (mm/dd/yyyy):"/>
+	    <mx:TextInput id="myDate"/>
+    	<mx:Button label="Do It" click="doValidation();"/>
+
+	 </mx:Panel>
+	 
+</mx:Application>

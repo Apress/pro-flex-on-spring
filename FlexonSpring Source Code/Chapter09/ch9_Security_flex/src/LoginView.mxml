@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">	     
+
+   	<mx:Style source="assets/css/style.css"/>
+   	
+   	<mx:Script>
+   	<![CDATA[
+		private function doLogin():void
+		{
+			// Send the login credentials to a server side authentication server
+			// and handle the result	
+		}		
+   	]]>
+   </mx:Script>
+   
+   <mx:Panel title="Password Protection Example"  
+		paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+	    horizontalAlign="center" width="506" height="300"
+	    styleName="blackBackground">
+		<mx:VBox id="loginBox"  
+			backgroundImage="assets/images/LoginScreen.png">
+			<mx:Canvas width="370" height="227" styleName="canvasFont">
+				<mx:VBox x="50" y="9" verticalGap="-1">
+					<mx:HBox horizontalGap="0" x="26" y="14">
+						<mx:Label text="APPFOUNDATION" styleName="labelFontOrange"/>
+						<mx:Label text="LOG IN" styleName="labelFontWhite"/>
+					</mx:HBox>
+					<mx:TextArea backgroundAlpha="0" wordWrap="true" borderStyle="none" 
+						selectable="false" editable="false"
+						text="Please enter your username and password below." 
+						width="288" height="35"/>
+				</mx:VBox>
+				<mx:TextInput id="txtUserName" width="278" height="18" enter="doLogin()" 
+					 y="67" x="52" styleName="loginTextInput"/>
+				<mx:TextInput id="txtPassword" width="278" height="18" enter="doLogin()" displayAsPassword="true"
+					y="88" x="52" styleName="loginTextInput"/>		
+				<mx:VBox width="100%" y="101" horizontalAlign="center">
+					<mx:Text id="boxLoginMessage" />
+					<mx:Label id="lblLoginMsg" styleName="loginMessageFont"/>
+				</mx:VBox> 
+				<mx:Button label="LOG IN" styleName="loginButton" click="doLogin()" 
+					x="276" y="128" width="65" height="31"/>
+			</mx:Canvas>
+		</mx:VBox>
+	</mx:Panel>
+</mx:Application>

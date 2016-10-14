@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%" height="100%" 
+	xmlns:ClientDetailViews="com.af.clientmanager.view.ClientManager.ClientDetailViews.*"
+	styleName="tabContainerSkin">
+	
+   <mx:TabNavigator width="100%" height="100%">
+        <mx:VBox label="General Information" width="100%" height="100%">
+            <ClientDetailViews:clientInfo />
+        </mx:VBox>
+
+        <mx:VBox label="Description" width="100%" height="100%">
+            <ClientDetailViews:clientDescription />
+        </mx:VBox>
+
+        <mx:VBox label="Location" width="100%" height="100%">
+            <ClientDetailViews:clientLocation />
+        </mx:VBox>  
+         
+        <mx:VBox label="Contacts" width="100%" height="100%">
+            <ClientDetailViews:clientContacts />
+        </mx:VBox>   
+        
+        <mx:VBox label="Links" width="100%" height="100%">
+            <ClientDetailViews:clientLinks />
+        </mx:VBox>   
+    </mx:TabNavigator>
+</mx:Canvas>

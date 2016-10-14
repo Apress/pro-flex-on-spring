@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"> 
+
+      <mx:Script>
+            <![CDATA[
+            import mx.validators.ValidationResult;  
+            import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+
+            import flash.net.*;
+            import com.af.cep.*;
+
+            public static const GET_CONTACTS:String = "getContacts";
+            public static const ADD_CONTACT:String = "addContact";
+            public static const UPDATE_CONTACT:String = "updateContact";
+            public static const DELETE_CONTACT:String = "deleteContact";             
+            public static const SELECTED_CONTACT:String = "selectedContact";
+
+            [Bindable]
+            public var contacts : ArrayCollection;  
+
+            public function getContacts():void
+            {                   
+                  dispatchEvent(new Event(GET_CONTACTS));
+            }    
+              
+            public function selectContact():void 
+            {
+                  if(dgContact.selectedItem != null)
+                  {
+                       fullName.text = dgContact.selectedItem.name;
+                       emailAddress.text = dgContact.selectedItem.email;
+                       dispatchEvent(new Event(SELECTED_CONTACT));
+                  }
+            }
+              
+           public function addContact() : void 
+           {
+                 dispatchEvent(new Event(ADD_CONTACT));
+           } 
+              
+           public function deleteContact():void 
+           {
+                 if(dgContact.selectedItem != null)
+                 {
+                       dispatchEvent(new Event(DELETE_CONTACT));
+                  }
+           }
+              
+           public function updateContact():void 
+           {
+                 if(dgContact.selectedItem != null)
+                 {
+                       dispatchEvent(new Event(UPDATE_CONTACT));
+                 }
+           }
+              
+           public function clearFormItems():void
+           {
+                 fullName.text = "";
+                 emailAddress.text = "";
+           }
+              
+           public function navigateToAF(event:MouseEvent):void 
+           {
+                 var u:URLRequest = new URLRequest("http://www.appfoundation.com");
+                 navigateToURL(u,"_blank");
+           }
+           ]]>
+      </mx:Script>
+    
+      <mx:Panel styleName="CustomPanelBlueGrey">
+            <mx:Panel height="100%" styleName="CustomPanelBlueGreen">
+                  <mx:VBox height="100%">
+                        <mx:ApplicationControlBar x="2" y="2" paddingTop="0" paddingLeft="3" horizontalGap="0"
+                              width="100%" height="22" styleName="ApplicationControlBarBlack" cornerRadius="4">
+                              <mx:Image source="assets/images/icon_halfArrowYellow.png"/>
+                              <mx:Label text="MY CONTACTS" fontWeight="bold" color="white" fontSize="13" />
+                        </mx:ApplicationControlBar>
+                        <mx:HBox height="100%" styleName="greyFill">    
+                              <mx:VBox>    
+                                    <mx:Form id="addcontactForm" width="100%">    
+                                          <mx:HBox width="100%" horizontalAlign="left">
+                                                <mx:Text text="Maintain Contacts:" fontSize="12"/>
+                                          </mx:HBox>
+    
+                                          <mx:FormItem label="Name: " width="100%">
+                                                <mx:TextInput id="fullName" width="100%" color="black"/>
+                                          </mx:FormItem>
+        
+                                          <mx:FormItem label="Email: " width="100%">
+                                                <mx:TextInput id="emailAddress" width="100%" color="black"/>
+                                          </mx:FormItem> 
+ 
+                                          <mx:HBox width="100%" horizontalAlign="right">
+                                                <mx:Button label="Add Contact" click="addContact()" />   
+                                                <mx:Button label="Update Contact" click="updateContact()" />
+                                                <mx:Button label="Delete Contact" click="deleteContact()" />
+                                          </mx:HBox>
+                                    </mx:Form>
+                              </mx:VBox>
+ 
+                              <mx:VRule height="100%" strokeColor="#DDDDDD"/>   
+
+                              <mx:VBox paddingTop="15" paddingLeft="15" paddingRight="15" paddingBottom="15">
+                                    <mx:Text text="Contact List:" fontSize="12"/>
+    
+                                    <mx:DataGrid id="dgContact" height="243" color="white"
+                                          styleName="greyFill" change="selectContact()" click="selectContact()">
+                                          <mx:columns>
+                                                <mx:DataGridColumn headerText="Name" dataField="name"/>
+                                                <mx:DataGridColumn headerText="Email" dataField="email"/>
+                                          </mx:columns>
+                                    </mx:DataGrid>
+                              </mx:VBox> 
+                        </mx:HBox>  
+                  </mx:VBox>
+            </mx:Panel>
+            <mx:HBox width="100%" >
+                  <mx:Image source="assets/images/icon_appFoundationSmall.png" click="navigateToAF(event)"
+                        alpha=".75" rollOverEffect="alphaFadeIn" rollOutEffect="alphaFadeOut"
+                        useHandCursor="true" buttonMode="true" mouseChildren="false"
+                        toolTip="AppFoundation.com"/>
+            </mx:HBox>
+      </mx:Panel>
+
+      <mx:Fade id="alphaFadeOut" duration="350" alphaFrom="1.0" alphaTo="0.75"/>
+      <mx:Fade id="alphaFadeIn"  duration="350" alphaFrom="0.75" alphaTo="1.0"/>
+</mx:Canvas>

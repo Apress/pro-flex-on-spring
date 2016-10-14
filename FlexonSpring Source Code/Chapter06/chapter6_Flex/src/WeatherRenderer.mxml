@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- Chapter 6 - Listing 6.2-->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%"
+	verticalScrollPolicy="off" horizontalScrollPolicy="off" 
+	verticalGap="0"
+	xmlns:common="com.af.common.*"
+	creationCompleteEffect="{zoom}">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.formatters.DateFormatter;
+			import flash.events.Event;
+			
+			[Bindable]
+			public var weatherItem:Object;
+		]]>
+	</mx:Script>	
+	
+	<mx:VBox id="container" horizontalAlign="center" verticalGap="0"
+		verticalAlign="middle" styleName="WeatherPanel" >    	         
+      	<mx:Label text="{weatherItem.Day}" />
+      	<mx:VBox verticalGap="0" horizontalAlign="center">
+	      	<mx:Image id="img" source="{weatherItem.WeatherImage}"/>
+      		<mx:HBox width="100%">
+      			<mx:Label text="Low" fontWeight="bold" />
+      			
+      			<mx:Label text="High" fontWeight="bold"/>
+      		</mx:HBox>
+      		<mx:HBox width="100%">
+        		<mx:Label text="{weatherItem.MinTemperatureF}" styleName="temperatureFont"/>
+        		
+        		<mx:Label text="{weatherItem.MaxTemperatureF}" styleName="temperatureFont"/>
+        	</mx:HBox>
+        </mx:VBox>
+ 	</mx:VBox> 
+    <mx:Zoom id="zoom" />
+</mx:VBox>

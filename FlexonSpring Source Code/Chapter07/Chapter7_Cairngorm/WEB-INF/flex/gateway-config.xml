@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    AMF Gateway Configuration File - Version 1.1
+
+    This presence of this file overrides the legacy behavior of
+    the gateway. It allows the developer to customize which
+    services are available.
+
+    This file also introduces the concept of a basic whitelist
+    which allows the developer to restrict access to
+    particular classes and JNDI names.
+ -->
+<gateway-config xmlns="http://www.macromedia.com/2004/gateway-config">
+
+    <!--
+    This list establishes which service adapters are enabled and
+    the order in which they are queried when searching for a supported service.
+     -->
+    <service-adapters>
+        <adapter>flashgateway.adapter.resultset.PageableResultSetAdapter</adapter>
+        <adapter type="stateful-class">flashgateway.adapter.java.JavaBeanAdapter</adapter>
+        <adapter type="stateless-class">flashgateway.adapter.java.JavaAdapter</adapter>
+        <!--<adapter type="ejb">flashgateway.adapter.java.EJBAdapter</adapter>-->
+        <adapter type="servlet">flashgateway.adapter.java.ServletAdapter</adapter>
+        <!--<adapter type="jmx">flashgateway.adapter.java.JMXAdapter</adapter>-->
+        <!--<adapter type="ssas">flashgateway.adapter.java.SSASAdapter</adapter>-->
+    </service-adapters>
+
+
+    <!-- The flashgateway.log.Logger implementation used to redirect
+     logging information, depending on the application. -->
+    <logger level="Error">flex.services.logging.FlexGatewayLogger</logger>
+
+
+    <security>
+        <!-- The flashgateway.security.LoginCommand implementation used
+         to perform local authentication, depending on the application
+         server.
+         If server-match is contained in the result of ServletContext.getServerInfo(),
+         then we use the given login-command.  If no server-match is given,
+         then the given login-command is always used.  -->
+        <login-command>
+            <class>flashgateway.security.JRunLoginCommand</class>
+            <server-match>JRun</server-match>
+        </login-command>
+        <login-command>
+            <class>flashgateway.security.WebSphereLoginCommand</class>
+            <server-match>WebSphere</server-match>
+        </login-command>
+        <login-command>
+            <class>flashgateway.security.WeblogicLoginCommand</class>
+            <server-match>WebLogic</server-match>
+        </login-command>
+        <login-command>
+            <class>flashgateway.security.TomcatLoginCommand</class>
+            <server-match>Tomcat</server-match>
+        </login-command>
+        <login-command>
+            <class>flashgateway.security.OracleLoginCommand</class>
+            <server-match>Oracle</server-match>
+        </login-command>
+
+        <!-- Stack traces are useful for debugging and product support, but they should
+        not be sent to the client in "production mode" as they can expose internal
+        information about the system. -->
+        <show-stacktraces>false</show-stacktraces>
+
+        <!-- A whitelist specifies which remote sources can be accessed through the
+        gateway. The * character can be used as a wildcard to imply ALL matches. -->
+
+        <!-- In Flex we share the RemoteObject whitelist in flex-config.xml by default.
+         The AMF Gateway servlet uses an init-param in /WEB-INF/web.xml to configure the
+        whitelist location. -->
+        <!--
+        <whitelist>
+            <source>*</source>
+        </whitelist>
+         -->
+    </security>
+
+    <!-- A redirect URL can be supplied to handle HTTP requests that were
+     not sent with AMF data -->
+    <redirect-url>{context.root}</redirect-url>
+
+    <!-- Determines how complex objects/generic class data types are to be
+    handled by the gateway. The two options are Classic or Flex.
+
+    Classic mode performs shallow serialization on all non-static fields
+    for classes implemeting java.io.Serializable.
+
+    Flex mode requires Macromedia Flex's RemoteObject serialization library
+    and performs deep serialization on fields with bean accessors for any
+     class. -->
+    <serialization>Flex</serialization>
+
+    <!-- ActionScript 1.0 and ColdFusion use case insensitive data structures
+    to store associative arrays, objects and structs - the Java representation
+    of these datatypes requires a case-insensitive Map, which the gateway
+    achieves by forcing lower-case keys. ActionScript 2.0 is now case sensitive,
+    and users may wish to disable this behavior by setting lowercase-keys
+    to false. -->
+    <lowercase-keys>false</lowercase-keys>
+
+</gateway-config>

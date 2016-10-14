@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="AppFoundation/tests"/>
+	<classpathentry kind="src" path="AppFoundation/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/flex-messaging-core.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/flex-messaging-common.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/spring_2.5.5.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/spring-security-core-tiger-2.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/spring-security-core-2.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_Central/libs/cos.jar"/>
+	<classpathentry kind="output" path="AppFoundation/WebRoot/WEB-INF/classes"/>
+</classpath>

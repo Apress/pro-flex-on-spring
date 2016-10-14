@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Chapter 4 - Listing 4.13 -->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:custom="com.af.components.datechooser.*">
+
+	<mx:Style source="assets/css/style.css"/>
+
+	 <mx:Panel id="mainPanel" title="Custom component example"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center">
+		
+		<custom:CustomDateChooser  />
+		
+	</mx:Panel>
+</mx:Application>
+

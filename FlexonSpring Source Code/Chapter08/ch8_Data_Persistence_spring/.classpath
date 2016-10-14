@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="AppFoundation/src"/>
+	<classpathentry kind="src" path="AppFoundation/tests"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/jstl.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/log4j-1.2.11.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/Spring_Project_Template/libs/flex-messaging-common.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/Spring_Project_Template/libs/flex-messaging.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/hibernate-testing.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/javassist-3.4.GA.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/slf4j-api-1.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/hibernate3.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/hibernate-cglib-repack-2.1_3.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/asm.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/ch8_Data_Persistence_spring/libs/spring_2.5.5.jar"/>
+	<classpathentry kind="output" path="AppFoundation/WebRoot/WEB-INF/classes"/>
+</classpath>

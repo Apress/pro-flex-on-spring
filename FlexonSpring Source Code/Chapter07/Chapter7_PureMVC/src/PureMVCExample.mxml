@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+      xmlns:mx="http://www.adobe.com/2006/mxml"
+      xmlns:viewcomponents="com.af.cep.view.viewcomponents.*"
+      xmlns:mvc="com.af.cep.*"
+      pageTitle="PureMVC Sample Project" 
+      horizontalAlign="center" verticalAlign="middle"
+      creationComplete="facade.startup(this)" backgroundColor="white" backgroundAlpha="0">
+
+     <mx:Style source="assets/css/style.css"/> 
+
+      <mx:Script>
+            <![CDATA[
+            import com.af.cep.*;
+            
+            private var facade:ApplicationFacade = ApplicationFacade.getInstance();
+
+            ]]>
+      </mx:Script>
+
+      <viewcomponents:ContactPanel id="contactPanel" />
+ 
+</mx:Application> 
+

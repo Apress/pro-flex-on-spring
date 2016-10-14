@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="55"
+	verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import com.af.clientmanager.view.Dialogs.DeleteClientConfirmationDialog;
+			import com.af.clientmanager.control.commands.events.clientEvents.DeleteClientEvent;
+			import com.af.clientmanager.control.commands.events.clientEvents.InsertClientEvent;
+			import mx.events.ItemClickEvent;
+			import com.af.clientmanager.model.vo.ClientVO;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			import com.af.clientmanager.control.commands.events.clientEvents.UpdateClientEvent;
+			import mx.controls.Alert;
+		import com.af.clientmanager.model.ModelLocator;
+
+	  	[Bindable]
+	   	public var model : ModelLocator = ModelLocator.getInstance();
+	   	
+	   	private function clearClientDetails():void
+	   	{
+	   		// remove all information from the panels after pop-up
+	   		model.selectedClient = new ClientVO();
+	   	}
+	   	private function saveClient():void
+	   	{
+   			if(model.selectedClient.objectIdentifier > 0)
+   			    CairngormEventDispatcher.getInstance().dispatchEvent(new UpdateClientEvent(model.selectedClient));
+	   		else
+	   		{
+	   			CairngormEventDispatcher.getInstance().dispatchEvent(new InsertClientEvent(model.selectedClient));
+	   		}	
+		   	
+	   	}	
+			
+	   	private function deleteClient():void
+	   	{
+	   		// Don't try to delete unless a client is selected
+	   		if(model.selectedClient.objectIdentifier > 0)
+	   		{
+		   		var pop1:DeleteClientConfirmationDialog = DeleteClientConfirmationDialog(
+	                    PopUpManager.createPopUp(this, DeleteClientConfirmationDialog, true));
+	            
+	            pop1.confirmationMessageTitle = "Delete Confirmation";   
+				pop1.confirmationMessageBody = "Are you sure you want to delete:  " + model.selectedClient.clientName;
+				
+				PopUpManager.centerPopUp(pop1); 
+	   		}
+	   	}
+	   	private function functionsBBClick(event:ItemClickEvent):void
+		{
+			switch (event.index) 
+			{
+				case 0:
+				    clearClientDetails();
+    				break;
+				case 1:
+					saveClient();
+    				break;
+				case 2:
+					deleteClient();
+    				break;
+			}
+		}
+		private function componentsBBClick(event:ItemClickEvent):void
+		{
+			switch (event.index) 
+			{
+				case 0:
+				    model.MainViewStackState=model.CLIENT_MANAGER;
+    				break;
+				case 1:
+					model.MainViewStackState=model.PROJECT_ADMIN;
+    				break;
+				case 2:
+					model.MainViewStackState=model.DASHBOARD;
+    				break;
+			}
+		}
+		]]>
+	</mx:Script>
+	
+	<mx:HBox width="100%" height="100%"
+		verticalScrollPolicy="off" horizontalScrollPolicy="off">
+		<mx:VBox width="100%" height="100%" >
+			<mx:HBox width="100%" height="100%" verticalAlign="middle" 
+				verticalScrollPolicy="off" horizontalScrollPolicy="off">
+				<mx:Label text="Af - Client Manager                      " styleName="appHeading"/>
+				<mx:Image source="@Embed('assets/packs/cleanSkin/basic_separator.png')" />
+			 	<mx:VBox width="100%" height="100%"
+			 		verticalAlign="middle">
+				 	<mx:ButtonBar id="functionsBB" height="29" 
+				 		itemClick="functionsBBClick(event)" 
+				 		verticalCenter="0" buttonWidth="40">
+						<mx:dataProvider>
+							<mx:Object icon="@Embed('assets/images/icon_addClient.png')" toolTip="New"/>
+							<mx:Object icon="@Embed('assets/images/icon_save.png')" toolTip="Save"/>
+							<mx:Object icon="@Embed('assets/images/icon_removeClient.png')" toolTip="Delete"/>
+						</mx:dataProvider>
+					</mx:ButtonBar>
+				</mx:VBox>
+				<mx:Spacer width="100%" />
+				
+			 	<mx:Image source="@Embed('assets/packs/cleanSkin/basic_separator.png')" />
+			 	<mx:VBox width="100%" height="100%"
+			 		verticalAlign="middle">
+				 	<mx:ButtonBar id="componentsBB" height="29" 
+				 		itemClick="componentsBBClick(event)" 
+				 		verticalCenter="0" buttonWidth="40">
+						<mx:dataProvider>
+							<mx:Object icon="@Embed('assets/images/icon_clientManager.png')" toolTip="Client Manager"/>
+							<mx:Object icon="@Embed('assets/images/icon_projectAdmin.png')" toolTip="Project Administrator"/>
+							<mx:Object icon="@Embed('assets/images/icon_dashboard.png')" toolTip="Dashboard"/>
+						</mx:dataProvider>
+					</mx:ButtonBar>
+				</mx:VBox>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:HBox>
+</mx:Canvas>

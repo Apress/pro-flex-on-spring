@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- Chapter 4 - Listing 4.10 -->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+
+	 <!-- US currency validator -->
+    <mx:CurrencyValidator 
+        source="{currencyUS}" 
+        property="text"
+        alignSymbol="left"
+        trigger="{validateButton}"
+        triggerEvent="click"/>
+	
+	<mx:Panel title="Validation through Events"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center">
+
+		<mx:Label text="Enter a US-formatted number:"/>
+    	<mx:TextInput id="currencyUS"/>
+    	<mx:Button label="Do It" id="validateButton"/>
+    	
+	 </mx:Panel>
+	 
+</mx:Application>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chapter 4 - Listing 4.6-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical"
+	horizontalAlign="center" verticalAlign="middle">
+   
+   <mx:Style source="assets/css/style.css"/>
+   
+   	<!-- Model: for contacts -->
+    <mx:Model id="contacts">
+        <contact>
+            <name>
+                <first>{"John"}</first> 
+                <last>{"Doe"}</last> 
+            </name>
+        </contact>
+    </mx:Model> 
+    
+    <!-- View: User Interface components and containers -->
+    <mx:Panel title="Use the mx:Binding tag in MXML"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center"
+        verticalAlign="middle">
+    	
+    	<mx:Form>
+
+	        <mx:FormItem label="First Name" >
+	            <mx:TextInput id="firstName" />
+	        </mx:FormItem>
+	        
+	        <mx:FormItem label="Last Name">
+	            <mx:TextInput id="lastName" />
+	        </mx:FormItem>
+
+    	</mx:Form>
+
+    </mx:Panel> 
+   
+   <!-- Controller: Used to bind data from the Model to the View -->
+    <mx:Binding
+        source="contacts.name.first"
+        destination="firstName.text" 
+    />
+    
+    <mx:Binding 
+        source="contacts.name.last" 
+        destination="lastName.text"
+    />
+
+</mx:Application>

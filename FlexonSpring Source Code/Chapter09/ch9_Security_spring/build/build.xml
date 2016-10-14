@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTE: Nothing in this file should be edited. All properties that are
+     environment dependant have been moved to Personal.properties; edit the
+     values of these properties to suit your environment. test for cvs
+-->
+
+<project name="Default Project" default="war" basedir="..">
+	<tstamp>
+		<format property="build.timestamp" pattern="yyyyMMDD-hhmmss" />
+	</tstamp>
+	<property name="APP_NAME" value="SpringSecurity" />
+	<property name="build-dir" value="build" />
+	<property name="dist-dir" value="build" />
+	<property name="web-dir" value="SpringSource/WebRoot" />	
+	<property name="web-bin-dir" value="bin" />
+	<property name="war-build-dir" value="${build-dir}/war" />
+	<property name="war-file" value="${APP_NAME}.war"/>
+	<property name="war" value="${dist-dir}/${war-file}"/>
+	<property name="jar" value="${dist-dir}/${jar-file}"/>
+	
+	<target name="init" >
+	    <mkdir dir="${war-build-dir}" />
+	</target>
+	
+	<target name="war">
+		<delete dir="${war-build-dir}" />
+		
+    	<copy todir="${war-build-dir}">
+      		<fileset dir="${web-dir}" />
+    		<fileset dir="${web-bin-dir}" />
+    	</copy>
+		
+		<delete dir="${war-build-dir}/build" />
+		<delete dir="${war-build-dir}/web" />
+
+    	<jar jarfile="${war}" basedir="${war-build-dir}" />
+	</target> 
+
+	<target name="clean">
+		<delete dir="${war-build-dir}" />
+	</target>
+</project>	

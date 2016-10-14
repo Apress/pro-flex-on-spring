@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="data-service"
+    class="flex.data.DataService"
+    messageTypes="flex.data.messages.DataMessage">
+
+    <adapters>
+        <adapter-definition id="actionscript" class="flex.data.adapters.ASObjectAdapter" default="true"/>
+        <adapter-definition id="java-dao" class="flex.data.adapters.JavaAdapter"/>
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-rtmp"/>
+    </default-channels>
+<!--
+    <destination id="notes">
+        <adapter ref="actionscript"/>
+        <properties>
+            <metadata>
+                <identity property="noteId"/>
+            </metadata>
+        </properties>
+    </destination>
+
+    <destination id="crm.employee">
+
+        <adapter ref="java-dao" />
+
+        <properties>
+            <source>samples.crm.EmployeeAssembler</source>
+            <scope>application</scope>
+
+            <metadata>
+                <identity property="employeeId"/>
+            </metadata>
+
+            <network>
+                <session-timeout>20</session-timeout>
+                <paging enabled="false" pageSize="10" />
+                <throttle-inbound policy="ERROR" max-frequency="500"/>
+                <throttle-outbound policy="REPLACE" max-frequency="500"/>
+            </network>
+
+        </properties>
+    </destination>
+-->
+    <!-- uncomment the following if hibernate is used in CRM sample -->
+    <!--
+    <destination id="crm.employee.hibernate">
+
+        <adapter ref="java-dao" />
+
+        <properties>
+
+            <use-transactions>true</use-transactions>
+
+            <source>flex.data.assemblers.HibernateAssembler</source>
+            <scope>application</scope>
+
+            <metadata>
+                <identity property="employeeId"/>
+            </metadata>
+
+            <network>
+                <session-timeout>20</session-timeout>
+                <paging enabled="false" pageSize="10" />
+                <throttle-inbound policy="ERROR" max-frequency="500"/>
+                <throttle-outbound policy="REPLACE" max-frequency="500"/>
+            </network>
+
+            <server>
+                <hibernate-entity>samples.crm.Employee</hibernate-entity>
+                <fill-method>
+                    <name>fill</name>
+                    <params>java.util.List</params>
+                </fill-method>
+
+                <fill-configuration>
+                    <use-query-cache>false</use-query-cache>
+                    <allow-hql-queries>true</allow-hql-queries>
+                </fill-configuration>
+            </server>
+
+        </properties>
+    </destination>
+    -->
+<!--
+    <destination id="crm.company">
+
+        <adapter ref="java-dao" />
+
+        <properties>
+            <source>samples.crm.CompanyAssembler</source>
+            <scope>application</scope>
+
+            <metadata>
+                <identity property="companyId"/>
+            </metadata>
+
+            <network>
+                <session-timeout>20</session-timeout>
+                <paging enabled="false" pageSize="10" />
+                <throttle-inbound policy="ERROR" max-frequency="500"/>
+                <throttle-outbound policy="REPLACE" max-frequency="500"/>
+            </network>
+        </properties>
+    </destination>
+-->
+    <!-- uncomment the following if hibernate is used in CRM sample -->
+    <!--
+    <destination id="crm.company.hibernate">
+
+        <adapter ref="java-dao" />
+
+        <properties>
+
+            <use-transactions>true</use-transactions>
+
+            <source>flex.data.assemblers.HibernateAssembler</source>
+            <scope>application</scope>
+
+            <metadata>
+                <identity property="companyId"/>
+            </metadata>
+
+            <network>
+                <session-timeout>20</session-timeout>
+                <paging enabled="false" pageSize="10" />
+                <throttle-inbound policy="ERROR" max-frequency="500"/>
+                <throttle-outbound policy="REPLACE" max-frequency="500"/>
+            </network>
+
+            <server>
+                <hibernate-entity>samples.crm.Company</hibernate-entity>
+                <fill-configuration>
+                    <use-query-cache>false</use-query-cache>
+                    <allow-hql-queries>true</allow-hql-queries>
+                </fill-configuration>
+            </server>
+
+        </properties>
+    </destination>
+    -->
+
+<!--
+    <destination id="flexcab.cab">
+
+        <adapter ref="java-dao" />
+
+        <properties>
+            <source>samples.flexcab.CabAssembler</source>
+            <scope>application</scope>
+            <attribute-id>cabAssembler</attribute-id>
+
+            <metadata>
+                <identity property="name"/>
+                <one-to-one property="currentFare" destination="flexcab.fare" lazy="true"/>
+            </metadata>
+
+            <network>
+                <session-timeout>20</session-timeout>
+                <paging enabled="false" pageSize="10" />
+                <throttle-inbound policy="ERROR" max-frequency="500"/>
+                <throttle-outbound policy="REPLACE" max-frequency="500"/>
+            </network>
+
+        </properties>
+    </destination>
+
+    <destination id="flexcab.fare">
+
+        <adapter ref="java-dao" />
+
+        <properties>
+            <source>samples.flexcab.FareAssembler</source>
+            <scope>application</scope>
+
+            <metadata>
+                <identity property="fareId"/>
+                <many-to-one property="customer" destination="flexcab.customer" lazy="false"/>
+                <many-to-one property="cab" destination="flexcab.cab" lazy="false"/>
+            </metadata>
+
+            <network>
+                <session-timeout>20</session-timeout>
+                <paging enabled="false" pageSize="10" />
+                <throttle-inbound policy="ERROR" max-frequency="500"/>
+                <throttle-outbound policy="REPLACE" max-frequency="500"/>
+            </network>
+
+        </properties>
+    </destination>
+
+    <destination id="flexcab.customer">
+
+        <adapter ref="java-dao" />
+
+        <properties>
+            <source>samples.flexcab.CustomerAssembler</source>
+            <scope>application</scope>
+
+            <metadata>
+                <identity property="phone"/>
+            </metadata>
+
+            <network>
+                <session-timeout>20</session-timeout>
+                <paging enabled="false" pageSize="10" />
+                <throttle-inbound policy="ERROR" max-frequency="500"/>
+                <throttle-outbound policy="REPLACE" max-frequency="500"/>
+            </network>
+
+        </properties>
+    </destination>
+-->
+</service>

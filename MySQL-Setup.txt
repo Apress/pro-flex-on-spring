@@ -1,0 +1,30 @@
+MySQL Client table setup.
+
+
+CREATE TABLE contacts (
+    objectidentifier INT(11) NOT NULL PRIMARY KEY,
+    name VARCHAR(120),
+    business_phone VARCHAR(16),
+    mobile_phone VARCHAR(16),
+    home_phone VARCHAR(16),
+    address_line1 VARCHAR(120),
+    address_line2 VARCHAR(120),
+    city VARCHAR(45),
+    state VARCHAR(25),
+    zip VARCHAR(10),
+    email VARCHAR(120),
+    company VARCHAR(120),
+    title VARCHAR(45),
+    responsibility VARCHAR(45),
+    image VARCHAR(45),
+    department VARCHAR(45),
+    phone_extension VARCHAR(16),
+    fax VARCHAR(16),
+    status VARCHAR(45),
+    reffered_by VARCHAR(45),
+    address_line3 VARCHAR(120),
+    country VARCHAR(60),
+    website VARCHAR(120)
+)
+
+insert into contacts values(0,'Default Contact','','','','','','','','','','','','','','','','','','','','','')

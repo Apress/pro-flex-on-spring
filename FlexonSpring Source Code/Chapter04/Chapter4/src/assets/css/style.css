@@ -1,0 +1,35 @@
+Application{
+	backgroundColor: #FFFFFF;	
+}
+
+Panel
+{
+	borderColor: #999999;	
+}
+.CustomDateChooser
+{
+	borderStyle: solid;
+  	borderThickness: 2;
+  	borderColor: #72BAE6;
+	borderSkin: ClassReference("com.af.components.graphics.RoundedGradientBorder");
+	fillColors: #FFFFFF, #C6E3F6; 
+	fillAlphas: 1, 1;
+	dropShadowEnabled: true;
+	topCornerRadius: 12;
+	bottomCornerRadius: 12;
+	cornerRadius: 12;
+	headerHeight: 30;
+}
+
+
+DateChooser 
+{
+    prevMonthSkin: Embed("assets/images/icon_BtnLeft.png");
+	nextMonthSkin: Embed("assets/images/icon_BtnRight.png");
+}
+
+
+.customVBoxBGColor
+{
+	backgroundColor: #CCCCCC;	
+}

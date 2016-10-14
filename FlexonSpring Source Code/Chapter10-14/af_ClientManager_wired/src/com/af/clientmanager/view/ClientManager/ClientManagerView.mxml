@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%" 
+	xmlns:ClientDetailViews="com.af.clientmanager.view.ClientManager.ClientDetailViews.*" 
+	xmlns:ClientProjectsDetailViews="com.af.clientmanager.view.ClientManager.ClientProjectsDetailViews.*" 
+	xmlns:ClientFinancialsDetailViews="com.af.clientmanager.view.ClientManager.ClientFinancialsDetailViews.*" xmlns:components="com.af.clientmanager.view.ClientManager.components.*">
+
+	<mx:VBox width="100%" height="100%">
+		<mx:HBox>
+			<mx:Button label="Overview" click="{vsAppLevel.selectedChild=clientOverview}"/>
+			<mx:Button label="Projects" click="{vsAppLevel.selectedChild=clientProjects}"/>
+			<mx:Button label="Financials" click="{vsAppLevel.selectedChild=clientFinancials}"/>
+		</mx:HBox>
+		<mx:ViewStack id="vsAppLevel" width="100%" height="100%" paddingTop="0"
+		creationPolicy="all">
+			<mx:Canvas id="clientOverview" showEffect="Fade" hideEffect="Fade">
+				<ClientDetailViews:ClientOverview />
+			</mx:Canvas>
+			<mx:Canvas id="clientProjects" showEffect="Fade" hideEffect="Fade">
+				<ClientProjectsDetailViews:ClientProjects />
+			</mx:Canvas>
+			<mx:Canvas id="clientFinancials" showEffect="Fade" hideEffect="Fade">
+				<ClientFinancialsDetailViews:ClientFinancials />
+			</mx:Canvas>
+		</mx:ViewStack>
+		<mx:HBox width="100%" height="40%">
+			<components:IssuesMilestonesList />
+			<components:DocumentsList />
+		</mx:HBox>
+	</mx:VBox>
+</mx:VBox>

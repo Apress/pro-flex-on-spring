@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:services="com.af.cep.services.*" 
+	xmlns:control="com.af.cep.control.*" 
+	xmlns:view="com.af.cep.view.*"
+	pageTitle="Cairngorm Sample Project" 
+	horizontalAlign="center" verticalAlign="middle">
+
+    <mx:Style source="assets/css/style.css"/>
+
+	<mx:Script>
+	<![CDATA[
+	
+		import com.af.cep.model.ModelLocator;	
+		import com.af.cep.vo.ContactVO;
+						
+		[Bindable]
+		public var model : ModelLocator = ModelLocator.getInstance();
+
+	]]>
+	</mx:Script>
+	
+<!-- ========================================================================== -->
+
+	<!-- the ServiceLocator where we specify the remote services -->
+	<services:Services id="addcontactServices"/>
+	
+	<!-- the FrontController, containing Commands specific to this appliation -->
+	<control:ContactController id="controller"/>
+	
+<!-- ========================================================================== -->
+
+    <view:ContactPanel id="addcontactPanel" />
+
+</mx:Application>

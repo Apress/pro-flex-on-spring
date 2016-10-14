@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Style source="assets/css/style.css"/>
+		
+	<mx:RemoteObject id="roJdbc" 
+		destination="ecommerceJdbcService"
+		endpoint="{roEndpoint}"
+		result="resultHandler(event)"
+		fault="faultHandler(event)"/>
+		
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.utils.ObjectUtil;
+			import mx.controls.Alert;
+			import mx.utils.StringUtil;
+
+			[Bindable]
+			private var guestListDP:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			private var roEndpoint:String = 
+			   "http://localhost:8080/SpringDataPersistence/messagebroker/amf";
+			   
+			private function resultHandler(event:ResultEvent):void
+			{
+				guestListDP = ArrayCollection(event.result);
+			}
+			
+			private function faultHandler(event:FaultEvent):void
+			{
+				Alert.show( ObjectUtil.toString(event.fault) );
+				ta1.text = ObjectUtil.toString(event.fault);
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Panel title="JDBC Integration Example"
+	        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+	        horizontalAlign="center" width="716" height="579">
+	
+		<mx:Button label="JDBC: Get Products" click="roJdbc.getProducts()"/>
+		<mx:DataGrid id="dg" dataProvider="{guestListDP}" width="100%" height="100%" />
+
+		<mx:TextArea id="ta1" width="100%" height="100%"/>
+	</mx:Panel>
+</mx:Application>

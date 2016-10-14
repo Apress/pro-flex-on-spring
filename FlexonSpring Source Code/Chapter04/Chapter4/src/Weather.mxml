@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="vertical"
+	backgroundAlpha="0" backgroundColor="#FFFFFF">
+
+	<mx:HTTPService
+		id="weatherService"
+		url="http://weather.yahooapis.com/forecastrss"
+		resultFormat="e4x"
+		result="resultHandler(event);"/>
+
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+
+			private namespace yweather = "http://xml.weather.yahoo.com/ns/rss/1.0";
+			use namespace yweather;
+
+			[Bindable]
+			private var myResult:XML;
+
+			public function requestWeather():void {
+				weatherService.cancel();
+				var params:Object = new Object();
+				params.p = zip.text;
+				weatherService.send(params);
+			}
+
+			public function resultHandler(event:ResultEvent):void {
+				myResult = XML( event.result );
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Form width="400">
+		<mx:FormItem label="Zip Code">
+			<mx:TextInput id="zip" />
+			<mx:Button label="Get Weather" click="requestWeather();"/>
+		</mx:FormItem>
+		<mx:FormItem label="City">
+			<mx:Text text="{myResult.channel.yweather::location.@city}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Temperature">
+			<mx:Text text="{myResult.channel.item.yweather::condition.@temp}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Condition">
+			<mx:Text text="{myResult.channel.item.yweather::condition.@text}" width="100%"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:TextArea id="resultFld" text="{myResult}" width="400" height="152"/>
+</mx:Application>

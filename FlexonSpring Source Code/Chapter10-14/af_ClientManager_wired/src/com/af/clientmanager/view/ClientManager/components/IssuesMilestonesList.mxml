@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%" backgroundColor="white">
+	
+	<mx:Script>
+		<![CDATA[
+		import com.af.clientmanager.model.ModelLocator;
+
+	  	[Bindable]
+	   	public var model : ModelLocator = ModelLocator.getInstance();
+		]]>
+	</mx:Script>
+	
+	<mx:Label text="Issues &amp; Milestones" styleName="headingFont20"/>
+	
+	<mx:DataGrid width="100%" height="100%" dataProvider="{model.issuesDP}">
+		<mx:columns>
+         <mx:DataGridColumn dataField="issueStatus" headerText="Status" />
+         <mx:DataGridColumn dataField="issueDescription" headerText="Description"/>
+      </mx:columns>
+	</mx:DataGrid>	
+</mx:VBox>

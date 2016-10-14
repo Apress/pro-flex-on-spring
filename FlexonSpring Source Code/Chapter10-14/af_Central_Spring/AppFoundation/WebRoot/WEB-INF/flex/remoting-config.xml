@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="remoting-service" 
+    class="flex.messaging.services.RemotingService">
+
+    <adapters>
+        <adapter-definition id="java-object" class="flex.messaging.services.remoting.adapters.JavaAdapter" default="true"/>
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-amf"/>
+    </default-channels>
+
+    <destination id="securityService">
+        <properties>
+            <factory>spring</factory>
+            <source>securityService</source>
+        </properties>
+    </destination>
+    
+    <destination id="clientService">
+        <properties>
+            <factory>spring</factory>
+            <source>clientService</source>
+        </properties>
+    </destination>
+    
+    <destination id="communicationService">
+        <properties>
+            <factory>spring</factory>
+            <source>communicationService</source>
+        </properties>
+    </destination>
+    
+    <destination id="invoiceService">
+        <properties>
+            <factory>spring</factory>
+            <source>invoiceService</source>
+        </properties>
+    </destination>
+    
+    <destination id="mediaService">
+        <properties>
+            <factory>spring</factory>
+            <source>mediaService</source>
+        </properties>
+    </destination>
+    
+    <destination id="projectService">
+        <properties>
+            <factory>spring</factory>
+            <source>projectService</source>
+        </properties>
+    </destination>
+    
+    <destination id="secService">
+        <properties>
+            <factory>spring</factory>
+            <source>secService</source>
+        </properties>
+    </destination>
+</service>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans
+        PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+     <!-- START Load application properties -->
+     <bean id="propertyConfigurer"
+       class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       <property name="location"><value>classpath:../application.properties</value></property>
+     </bean>
+   	<!-- END Load application properties -->
+	
+	<!--  START DB connection info -->
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+         destroy-method="close">
+       <property
+         name="driverClassName"><value>${jdbc.driverClassName}</value></property>
+       <property name="url"><value>${jdbc.url}</value></property>
+       <property name="username"><value>${jdbc.username}</value></property>
+       <property name="password"><value>${jdbc.password}</value></property>
+    </bean>
+
+    <bean id="transactionManager"
+       class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+       <property name="dataSource"><ref local="dataSource"/></property>
+    </bean>
+	<!--  END DB connection info -->    
+
+	<!--  START iBATIS config -->
+	<bean id="sqlMapClientTemplate" 
+    	class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+  		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+       <property name="dataSource" ref="dataSource" />
+       <!--  this needs to point to where the sql-map-config.xml file is -->
+       <property name="configLocation" value="classpath:../sql-map-config.xml" />
+    </bean>
+	<!--  END iBATIS config -->
+
+	<!--  START DAO config -->
+	<bean id="contactDao" class="com.appfoundation.vms.dao.ibatis.ContactDaoImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	
+	<!--  END DAO config -->
+    
+    <bean id="contactService" class="com.appfoundation.vms.services.ContactServiceImpl">
+        <property name="contactDao"><ref bean="contactDao"/></property>        
+    </bean>
+</beans>

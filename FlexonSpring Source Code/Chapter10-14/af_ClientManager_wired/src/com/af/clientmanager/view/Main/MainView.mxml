@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%"
+	backgroundColor="#888888" 
+	xmlns:ClientDetailViews="com.af.clientmanager.view.ClientManager.ClientDetailViews.*" 
+	xmlns:ClientFinancialsDetailViews="com.af.clientmanager.view.ClientManager.ClientFinancialsDetailViews.*" 
+	xmlns:ClientProjectsDetailViews="com.af.clientmanager.view.ClientManager.ClientProjectsDetailViews.*" 
+	xmlns:components="com.af.clientmanager.view.ClientManager.components.*" 
+	xmlns:ClientManager="com.af.clientmanager.view.ClientManager.*" 
+	xmlns:ProjectManager="com.af.clientmanager.view.ProjectManager.*" 
+	xmlns:Dashboard="com.af.clientmanager.view.Dashboard.*">
+	
+	<mx:Script>
+		<![CDATA[
+		import com.af.clientmanager.model.ModelLocator;
+
+	  	[Bindable]
+	   	public var model : ModelLocator = ModelLocator.getInstance();
+		]]>
+	</mx:Script>
+
+	<mx:HBox width="100%" height="100%">
+		<components:ClientList />
+		<mx:ViewStack id="vsMain" width="100%" height="100%" paddingTop="0"
+			creationPolicy="all"
+			selectedIndex="{model.MainViewStackState}">
+			<mx:Canvas id="clientManagerView" showEffect="Fade" hideEffect="Fade">
+				<ClientManager:ClientManagerView />
+			</mx:Canvas>
+			<mx:Canvas id="projectManagerView" showEffect="Fade" hideEffect="Fade">
+				<ProjectManager:ProjectManagerView />
+			</mx:Canvas>
+			<mx:Canvas id="dashboardView" showEffect="Fade" hideEffect="Fade">
+				<Dashboard:DashboardView />
+			</mx:Canvas>
+		</mx:ViewStack>
+	</mx:HBox>
+</mx:Canvas>

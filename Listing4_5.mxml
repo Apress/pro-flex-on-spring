@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Chapter 4 - Listing 4.5-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalAlign="center" verticalAlign="middle"
+    initialize="initComp();"
+	backgroundColor="#FFFFFF" backgroundAlpha="0">
+
+	<mx:Style source="assets/css/style.css"/>
+
+   	<mx:Script>
+      <![CDATA[
+         import mx.collections.*
+         private var STATES_ARRAY:Array= 
+            [{label:"AR", data:"Arkansas"},
+            {label:"OH", data:"Ohio"},
+            {label:"TX", data:"Texas"}];
+            
+         // Declare an ArrayCollection variable for states.
+         // Make it Bindable so it can be bound to a container ({statesAC})
+         [Bindable] public var statesAC:ArrayCollection;
+
+         // Initialize statesAC ArrayCollection variable from the Array.
+         private function initComp():void 
+         {
+            statesAC = new ArrayCollection(STATES_ARRAY);
+         }
+      ]]>
+   	</mx:Script>    
+ 	
+   	<mx:Panel title="Using the Curly Braces for Data Binding"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center">
+   		
+   		<mx:ComboBox dataProvider="{statesAC}"/>
+    
+    </mx:Panel> 
+    
+</mx:Application>

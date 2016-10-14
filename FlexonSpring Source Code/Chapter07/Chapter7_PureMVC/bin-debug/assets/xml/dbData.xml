@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<financials>
+	<data  dayDate="701"
+		thisYearMarkdownSalesDollar="55778867.20"
+		lastYearMarkdownSalesDollar="358608.00"
+		lastYearSalesMarkdownDollar="55420259.20"
+		lastYearPercentSalesMarkdown="1005.658727%"
+		thisYearMarkdownInventoryDollar="11597474.09"
+		lastYearMarkdownInventoryDollar="213020.00"
+		lastYearOnhandMarkdownDollar="11384454.09"
+		lastYearPercentOnhandMarkdown="-268.948271%"
+		>
+	</data>
+		<data  dayDate="702"
+		thisYearMarkdownSalesDollar="55778867.20"
+		lastYearMarkdownSalesDollar="258608.00"
+		lastYearSalesMarkdownDollar="15420259.20"
+		lastYearPercentSalesMarkdown="21005.658727%"
+		thisYearMarkdownInventoryDollar="9597474.09"
+		lastYearMarkdownInventoryDollar="713020.00"
+		lastYearOnhandMarkdownDollar="11634454.09"
+		lastYearPercentOnhandMarkdown="-768.948271%"
+		>
+	</data>
+		<data  dayDate="703"
+		thisYearMarkdownSalesDollar="55778867.20"
+		lastYearMarkdownSalesDollar="158608.00"
+		lastYearSalesMarkdownDollar="25420259.20"
+		lastYearPercentSalesMarkdown="805.658727%"
+		thisYearMarkdownInventoryDollar="9597474.09"
+		lastYearMarkdownInventoryDollar="113020.00"
+		lastYearOnhandMarkdownDollar="1384454.09"
+		lastYearPercentOnhandMarkdown="-168.948271%"
+		>
+	</data>
+		<data  dayDate="704"
+		thisYearMarkdownSalesDollar="55778867.20"
+		lastYearMarkdownSalesDollar="398608.00"
+		lastYearSalesMarkdownDollar="51420259.20"
+		lastYearPercentSalesMarkdown="1105.658727%"
+		thisYearMarkdownInventoryDollar="211597474.09"
+		lastYearMarkdownInventoryDollar="313020.00"
+		lastYearOnhandMarkdownDollar="21384454.09"
+		lastYearPercentOnhandMarkdown="-568.948271%"
+		>
+	</data>
+</financials>

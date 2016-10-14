@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="*"
+	width="0" height="0"
+	verticalScrollPolicy="off"
+	horizontalScrollPolicy="off"
+	creationComplete="initComp();">
+
+	<mx:Script>
+		<![CDATA[
+		import com.af.clientmanager.model.vo.ClientContactsVO;
+		import com.af.clientmanager.control.commands.events.clientEvents.DeleteClientContactEvent;
+		import com.adobe.cairngorm.control.CairngormEvent;
+		import mx.effects.Blur;
+		import mx.effects.Fade;
+		import mx.effects.Move;
+		import mx.effects.Parallel;
+		import mx.effects.Resize;
+		import mx.effects.easing.*;
+		import mx.events.EffectEvent;
+		import mx.controls.Alert;
+		import mx.managers.PopUpManager;
+		
+		import com.adobe.cairngorm.control.CairngormEventDispatcher; 
+		import com.af.clientmanager.model.ModelLocator;
+
+	  	[Bindable]
+	   	public var model : ModelLocator = ModelLocator.getInstance();
+		
+		[Bindable] public var confirmationMessageTitle: String;
+		[Bindable] public var confirmationMessageBody: String;
+		
+		public function initComp():void
+		{
+			this.width = 0; 
+			this.height = 0; 
+	
+			var parellel:Parallel = new Parallel(); 
+			parellel.target = this; 
+			
+			var resize:Resize = new Resize();
+			resize.target = this;
+			resize.widthTo = mainCanvas.width; 
+			resize.heightTo = mainCanvas.height;
+					
+			var move:Move = new Move(); 
+			move.xFrom = this.stage.width/2; 
+			move.yFrom = this.stage.height/2; 
+			move.xTo = this.stage.width/2 - mainCanvas.width/2; 
+			move.yTo = this.stage.height/2 - mainCanvas.height/2; 
+			
+			var fade:Fade = new Fade(); 
+			fade.alphaFrom = 0; 
+			fade.alphaTo = 1; 
+			
+			var blur:Blur = new Blur(); 
+			blur.blurXFrom = 30; 
+			blur.blurYFrom = 30; 
+			blur.blurXTo = 0; 
+			blur.blurYTo = 0;
+			
+			parellel.addChild(resize); 
+			parellel.addChild(move); 
+			parellel.addChild(fade); 
+			parellel.addChild(blur); 
+			
+			resize.easingFunction = mx.effects.easing.Circular.easeInOut; 
+			move.easingFunction = mx.effects.easing.Circular.easeInOut; 
+			fade.easingFunction = mx.effects.easing.Circular.easeInOut; 
+			
+			parellel.duration = 600; 
+			parellel.play(); 
+			parellel.addEventListener(EffectEvent.EFFECT_END, effectEndHandler); 
+			
+			container.visible = false;
+		}
+		public function effectEndHandler(event:EffectEvent):void
+		{
+			container.visible = true; 
+		}
+		private function closeDialog():void
+		{
+			var parellel:Parallel = new Parallel(); 
+			parellel.target = this; 
+			
+			var fade:Fade = new Fade(); 
+			fade.alphaFrom = 1; 
+			fade.alphaTo = 0; 
+
+			parellel.addChild(fade); 
+
+			fade.easingFunction = mx.effects.easing.Circular.easeInOut; 
+			
+			parellel.duration = 400; 
+			parellel.play(); 
+			parellel.addEventListener(EffectEvent.EFFECT_END, closeDialogFinal); 
+			
+		}
+		private function closeDialogFinal(event:EffectEvent):void
+		{
+			PopUpManager.removePopUp(this);
+		}
+		public function HeaderMouseDownHandler(event:MouseEvent):void
+		{
+			this.startDrag(false); 				
+		}
+		public function HeaderMouseUpHandler(event:MouseEvent):void
+		{
+			this.stopDrag(); 
+		}
+
+		private function yesClicked():void
+		{
+			CairngormEventDispatcher.getInstance().dispatchEvent(new DeleteClientContactEvent(ClientContactsVO(model.selectedContact)));
+			closeDialog();
+		}
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas id="mainCanvas" width="386" height="196" 
+		verticalScrollPolicy="off" horizontalScrollPolicy="off"
+		styleName="panelSkin">
+		<mx:VBox width="100%" height="100%" id="container"
+			verticalScrollPolicy="off" horizontalScrollPolicy="off"
+			paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="5"
+			verticalGap="0">
+
+			<mx:Canvas width="100%" height="15%"
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off" 
+				mouseDown="HeaderMouseDownHandler(event);" 
+				mouseUp="HeaderMouseUpHandler(event);"
+				mouseChildren="false" buttonMode="true" useHandCursor="true">
+				<mx:Image id="iconImage" source="@Embed('/assets/images/icon_redXwarning.png')"/>
+				<mx:Text text="{confirmationMessageTitle}" 
+					width="90%" height="100%" styleName="heading" x="25" y="3"/>
+			</mx:Canvas>
+			<mx:Spacer height="3" />
+			<mx:HBox width="100%" height="80%"
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off" horizontalAlign="center" verticalAlign="middle">         
+				<mx:Text id="txtMessageBody" text="{confirmationMessageBody}"/>
+			</mx:HBox>
+		
+			<mx:HBox width="100%" height="5%"
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off">
+				<mx:Spacer width="90%" />
+				<mx:Button label="Yes" height="20" width="80" click="yesClicked()"/>
+				<mx:Button label="No" height="20" width="80" click="closeDialog()"/>		
+			</mx:HBox>
+
+		</mx:VBox>
+	</mx:Canvas>
+</mx:Canvas>

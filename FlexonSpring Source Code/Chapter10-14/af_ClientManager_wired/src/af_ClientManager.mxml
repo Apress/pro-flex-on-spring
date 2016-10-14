@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	pageTitle="AF Client Manager"
+	layout="absolute"
+	xmlns:view="com.af.view.*" 
+	xmlns:services="com.af.clientmanager.services.*" 
+	xmlns:control="com.af.clientmanager.control.*"
+	xmlns:Main="com.af.clientmanager.view.Main.*"
+	xmlns:model="com.af.clientmanager.model.*"
+	initialize="initApp()" >
+	
+	<mx:Style source="assets/css/style.css"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ListEvent;
+			import assets.AssetLib;
+			import mx.controls.Alert;
+
+			private function initApp():void
+			{
+				// Currently set to applicationView to bypass
+                // the login process.
+				vsAppLevel.selectedChild = applicationView;	
+			}
+			public function loginSuccess():void
+			{
+				vsAppLevel.selectedChild = applicationView;
+			}
+		]]>
+	</mx:Script>
+
+	<!-- ========================================================================== -->
+	<!-- the ServiceLocator where we specify the remote services -->
+	<services:Services id="services"/>
+	
+	<!-- the FrontController, containing Commands-to-Event mappings -->
+	<control:MainController id="mainController" />
+	<!-- ========================================================================== -->
+
+	<mx:Fade id="fadeInApp" alphaFrom="0" alphaTo="1" duration="500" />  
+
+	<mx:VBox width="100%" height="100%" backgroundAlpha=".88"
+		verticalScrollPolicy="off" horizontalScrollPolicy="off"
+	    verticalAlign="top" horizontalAlign="center">
+		
+		<mx:ViewStack id="vsAppLevel" width="100%" height="100%" paddingTop="0"
+			creationPolicy="all">
+			<mx:Canvas id="loginView" showEffect="Fade" hideEffect="Fade">
+				<Main:Login width="100%" height="100%" />
+			</mx:Canvas>
+			<mx:VBox width="100%" height="100%" id="applicationView" backgroundAlpha="0"
+				verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingTop="0"
+	    		verticalAlign="top" horizontalAlign="center" showEffect="Fade" hideEffect="Fade">
+				<mx:VBox width="985" height="735" paddingTop="0" verticalGap="0"
+					verticalScrollPolicy="off" horizontalScrollPolicy="off"
+					borderStyle="solid" borderThickness="2"
+					backgroundColor="#FFFFFF" backgroundAlpha=".75">
+					
+					<Main:Header backgroundColor="red" />	
+
+				    <mx:VBox width="100%" height="100%">
+				        <Main:MainView />
+				    </mx:VBox>
+
+			    	<Main:Footer backgroundColor="blue"/>	
+				</mx:VBox>	
+			</mx:VBox>	
+		</mx:ViewStack>
+	</mx:VBox>
+</mx:Application>

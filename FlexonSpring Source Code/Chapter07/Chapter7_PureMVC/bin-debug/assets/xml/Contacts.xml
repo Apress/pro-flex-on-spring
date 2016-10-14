@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contacts>
+		<contact>
+			<contact_id>1</contact_id>
+			<name>Chris Giametta</name>
+			<email>chris.giametta@myemail.com</email>
+		</contact>
+	
+		<contact>
+			<contact_id>2</contact_id>
+			<name>Cole Giametta</name>
+			<email>cole.giametta@myemail.com</email>
+		</contact>
+	
+		<contact>
+			<contact_id>3</contact_id>
+			<name>Kaitlyn Giametta</name>
+			<email>kaitlyn.giametta@myemail.com</email>
+		</contact>
+	
+		<contact>
+			<contact_id>4</contact_id>
+			<name>Kristi Giametta</name>
+			<email>kristi.giametta@myemail.com</email>
+		</contact>
+</contacts>
+
+	

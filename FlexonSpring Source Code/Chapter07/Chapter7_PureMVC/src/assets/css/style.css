@@ -1,0 +1,414 @@
+/* CSS file */
+/*
+//------------------------------
+//  Application
+//------------------------------
+*/
+Application
+{
+	/*backgroundImage: Embed(source="gridBG_01.jpg"); */
+	color: #FFFFFF;
+	backgroundColor: #D7DADB;
+	fontWeight: bold;
+}
+
+.CustomLinkButton {
+   cornerRadius: 0;
+   letterSpacing: 0;
+   rollOverColor: #000000;
+   selectionColor: #000000;
+   color: #000000;
+   textRollOverColor: #0000ff;
+   textSelectedColor: #0033cc;
+   fontSize: 11;
+   fontWeight: normal;
+}
+
+Panel { 
+   headerHeight: 22;
+   shadowDistance: 3;
+   highlightAlphas: 0.3,0;
+   titleStyleName: "panelTitle";
+   backgroundColor: #4C555E;
+   footerColors: #4C555E,#4C555E;
+   cornerRadius: 6;
+   dropShadow: true;
+   panelBorderStyle: "roundCorners";  
+ }
+ 
+ .panelTitle {
+	color: #FFFFFF;
+	textAlign: left;
+	fontSize: 14;
+	fontWeight: bold;
+}
+
+Button { 
+   highlightAlphas: 1, 0;
+   fillAlphas: 1, 1, 0.74, 1;
+   fillColors: #999999, #cccccc;
+   borderColor: #999999;
+   dropShadow: true;
+   shadowDistance: 1;
+   fontSize: 11;
+   fontWeight: bold;
+   
+   cornerRadius: 3;
+   borderThickness: 1;
+   themeColor: #14527A;
+   color: #000000;
+   disabledColor: #999999;
+}
+
+.CustomPanelWhite { 
+   cornerRadius: 11;
+   headerHeight: 0;
+   borderThickness: 10;
+   roundedBottomCorners: true;
+   backgroundAlpha: 1;
+   borderAlpha: 1;
+   backgroundColor: #ffffff;
+   borderThicknessLeft: 10;
+   borderThicknessRight: 10;
+   borderThicknessTop: 10;
+   borderThicknessBottom: 10;
+   highlightAlphas: 1, 1;
+   headerColors: #ffffff, #ffffff;
+   footerColors: #ffffff, #ffffff;
+   borderColor: #ffffff;
+   titleStyleName: "myTitleStyle";
+} 
+
+.CustomPanelBlueGrey{ 
+   cornerRadius: 11;
+   headerHeight: 0;
+   borderThickness: 10;
+   roundedBottomCorners: true;
+   backgroundAlpha: 1;
+   borderAlpha: 1;
+   backgroundColor: #1D2B38;
+   borderThicknessLeft: 3;
+   borderThicknessRight: 3;
+   borderThicknessTop: 3;
+   borderThicknessBottom: 3;
+   highlightAlphas: 1, 1;
+   headerColors: #1D2B38, #1D2B38;
+   footerColors: #1D2B38, #1D2B38;
+   borderColor: #1D2B38;
+   titleStyleName: "myTitleStyle";
+} 
+
+.CustomPanelBlueGreen { 
+   cornerRadius: 8;
+   headerHeight: 0;
+   borderThickness: 10;
+   roundedBottomCorners: true;
+   backgroundAlpha: 1;
+   borderAlpha: 1;
+   backgroundColor: #465059;
+   borderThicknessLeft: 3;
+   borderThicknessRight: 3;
+   borderThicknessTop: 3;
+   borderThicknessBottom: 3;
+   highlightAlphas: 1, 1;
+   headerColors: #ffffff, #ffffff;
+   footerColors: #ffffff, #ffffff;
+   borderColor: #465059;
+   titleStyleName: "myTitleStyle";
+}
+ 
+.myTitleStyle {
+   }
+ 
+ .CustomPanelGreen { 
+   cornerRadius: 5;
+   color: #ffffff;
+   headerHeight: 0;
+   borderThickness: 5;
+   roundedBottomCorners: true;
+   backgroundAlpha: 1;
+   borderAlpha: 1;
+   backgroundColor: #5E9E46;
+   borderThicknessLeft: 3;
+   borderThicknessRight: 3;
+   borderThicknessTop: 3;
+   borderThicknessBottom: 3;
+   highlightAlphas: 1, 1;
+   headerColors: #5E9E46, #5E9E46;
+   footerColors: #5E9E46, #5E9E46;
+   borderColor: #5E9E46;
+   titleStyleName: "myTitleStyle";
+} 
+ .CustomPanelLtGreen { 
+   cornerRadius: 5;
+   color: #ffffff;
+   headerHeight: 0;
+   borderThickness: 10;
+   roundedBottomCorners: true;
+   backgroundAlpha: 1;
+   borderAlpha: 1;
+   backgroundColor: #97C087;
+   borderThicknessLeft: 10;
+   borderThicknessRight: 10;
+   borderThicknessTop: 10;
+   borderThicknessBottom: 10;
+   highlightAlphas: 1, 1;
+   headerColors: #97C087, #97C087;
+   footerColors: #97C087, #97C087;
+   borderColor: #97C087;
+   titleStyleName: "myTitleStyle";
+} 
+
+ .CustomPanelDkGreen { 
+   cornerRadius: 5;
+   color: #ffffff;
+   headerHeight: 0;
+   borderThickness: 10;
+   roundedBottomCorners: true;
+   backgroundAlpha: 1;
+   borderAlpha: 1;
+   backgroundColor: #50873C;
+   borderThicknessLeft: 10;
+   borderThicknessRight: 10;
+   borderThicknessTop: 10;
+   borderThicknessBottom: 10;
+   highlightAlphas: 1, 1;
+   headerColors: #50873C, #50873C;
+   footerColors: #50873C, #50873C;
+   borderColor: #50873C;
+   titleStyleName: "myTitleStyle";
+}  
+
+.CustomPanelMedBlue { 
+   cornerRadius: 5;
+   color: #ffffff;
+   headerHeight: 0;
+   borderThickness: 10;
+   roundedBottomCorners: true;
+   backgroundAlpha: 1;
+   borderAlpha: 1;
+   backgroundColor: #51739A;
+   borderThicknessLeft: 10;
+   borderThicknessRight: 10;
+   borderThicknessTop: 10;
+   borderThicknessBottom: 10;
+   highlightAlphas: 1, 1;
+   headerColors: #51739A, #51739A;
+   footerColors: #51739A, #51739A;
+   borderColor: #51739A;
+   titleStyleName: "myTitleStyle";
+} 
+
+.CustomPanelGlass
+{
+
+	closeButtonDisabledSkin: Embed(source="wmp11.swf",symbol="Panel_closeButtonDisabledSkin");
+	closeButtonDownSkin: Embed(source="wmp11.swf",symbol="Panel_closeButtonDownSkin");
+	closeButtonOverSkin: Embed(source="wmp11.swf",symbol="Panel_closeButtonOverSkin");
+	closeButtonUpSkin: Embed(source="wmp11.swf",symbol="Panel_closeButtonUpSkin");
+	borderSkin: Embed(source="wmp11.swf", symbol="Panel_borderSkin");
+	/*titleBackgroundSkin: Embed(source="empty.swf", symbol="Panel_titleBackgroundSkin");*/
+	borderThicknessLeft: 6;
+	borderThicknessRight: 6;
+	borderThicknessTop: 0;
+	borderThicknessBottom: 6;
+	headerHeight: 0;
+	titleStyleName: "title";
+	backgroundColor: #ffffff;
+	backgroundAlpa:.5;
+}
+
+.title {
+	fontSize: 12;
+	color: #000000;
+	/*fontWeight: bold;*/
+}
+
+.ApplicationControlBarLightBlue {
+   fillAlphas: 1, 1;
+   fillColors: #ededed, #cfcfcf;
+   cornerRadius: 0;
+   dropShadowEnabled: false;
+}
+
+.ApplicationControlBarBlue {
+    cornerRadius: 6;
+	shadowDistance: 4;
+	shadowDirection: right;
+	dropShadowColor: #333333;
+	backgroundColor: #000000;
+	highlightAlphas: 0, 0;
+   	fillAlphas: 1, 0.58;
+   	fillColors: #003366, #003366;
+	backgroundAlpha: 1;
+}
+		
+.ApplicationControlBarBlack {
+	cornerRadius: 6;
+	shadowDistance: 4;
+	shadowDirection: right;
+	dropShadowColor: #333333;
+	backgroundColor: #000000;
+	highlightAlphas: 0, 0;
+	fillAlphas: 1, 0.58;
+	fillColors: #000000, #000000;
+	backgroundAlpha: 1;
+}
+
+.ApplicationControlBarGrey {
+	cornerRadius: 6;
+	shadowDistance: 4;
+	shadowDirection: right;
+	dropShadowColor: #333333;
+	backgroundColor: #000000;
+	highlightAlphas: 0, 0;
+	fillAlphas: 1, 0.58;
+	fillColors: #3D3D3D, #3D3D3D;
+	backgroundAlpha: 1;
+}
+
+.ButtonBlue {
+   fillAlphas: 1, 1, 0, 0;
+   fillColors: #7e91a5, #7e91a5, #000000, #eeeeee;
+   color: #ffffff;
+   textRollOverColor: #000000;
+   textSelectedColor: #000066;
+   borderColor: #0000ff;
+   themeColor: #000066;
+}
+
+DataGrid { 
+    headerColors: #111111,#999999;
+    alternatingItemColors: #333333,#666666;
+    rollOverColor: #CBE9C4;
+    selectionColor: #97D38A;
+    backgroundColor: #4C555E;
+    color: #FFFFFF;
+}
+
+/*List {
+	 borderColor: #8e8e8e;
+	 color: #000000;
+	 textSelectedColor: #FFFFFF;
+	 useRollOver: false;
+	 selectionDuration: 10;
+	 
+	headerColors: #4C555E,#999999;
+    alternatingRowColors: #4C555E,#454C53;
+    rollOverColor: #CBE9C4;
+    selectionColor: #97D38A;
+    backgroundColor: #4C555E;
+}
+*/
+/*ApplicationControlBar {
+   highlightAlphas: 1, 0;
+   fillAlphas: 1, 1;
+   fillColors: #999999, #cccccc;
+}*/
+ApplicationControlBar {
+   highlightAlphas: 1, 0;
+   fillAlphas: 1, 1;
+   fillColors: #3D3D3D, #3D3D3D;
+}
+
+/*
+//------------------------------
+//  Tree
+//------------------------------
+*/
+/*
+Tree
+{
+	defaultLeafIcon: Embed(source="AeonGraphical.swf",symbol="Tree_defaultLeafIcon");
+	disclosureClosedIcon: Embed(source="AeonGraphical.swf",symbol="Tree_disclosureClosedIcon");
+	disclosureOpenIcon: Embed(source="AeonGraphical.swf",symbol="Tree_disclosureOpenIcon");
+	folderClosedIcon: Embed(source="AeonGraphical.swf",symbol="Tree_folderClosedIcon");
+	olderOpenIcon: Embed(source="AeonGraphical.swf",symbol="Tree_folderOpenIcon");
+	
+   shadowDistance: 3;
+   borderThickness: 1;
+   borderAlpha: 1;
+   borderStyle: solid;
+   borderColor: #c0c0c0;
+   highlightAlphas: 0.3,0;
+   headerColors: #f9f9f9, #cacaca;
+   paddingTop: 5;
+   paddingBottom: 5;
+   paddingRight: 5;
+   paddingLeft: 5;
+   backgroundColor: #ffffff;
+   rollOverColor: #CBE9C4; 
+}
+*/
+.glassDataGrid { 
+    color:              #000000;
+    fontWeight:         bold;
+    fontSize:			11;	
+    backgroundColor:    #000000;
+    borderThickness:    2;
+    borderColor:        #DDDDDD;
+    dropShadowEnabled:  true;
+    shadowDirection:    right;
+    dropShadowColor:    black;
+    backgroundAlpha:    .2;    
+    headerColors:       #999999, white, white; /* three colors instead of two */
+    headerColorsRatios: 0, 60, 255; /* new */
+    headerColorsAlphas: .6, .4, 1; /* new */
+    rollOverColor:      white;
+    rollOverColorAlpha: .3; /* new */
+    selectionColor:     white;
+    selectionColorAlpha:.4; /* new */
+    caretColor:         #DDDDDD; /* new */
+    caretColorAlpha:    1; /* new */
+    headerStyleName:    glassDataGridHeaderStyle;
+} 
+
+.glassDataGridHeaderStyle {
+    color:                #000000;
+    fontWeight:            bold;
+}
+
+.TabNavigatorDark {
+   tabHeight: 20;
+   tabWidth: 28;
+   cornerRadius: 6;
+   horizontalGap: 0;
+   backgroundAlpha: 1;
+   backgroundColor: #999999;
+   borderColor: #cccccc;
+   borderThickness: 1;
+   dropShadowEnabled: true;
+   shadowDirection: right;
+   tabStyleName: "myTabs";
+   selectedTabTextStyleName: "mySelectedTabs";
+}
+
+.myTabs {
+   cornerRadius: 6;
+   highlightAlphas: 0, 0;
+   fillAlphas: 1, 1;
+   fillColors: #999999, #cccccc;
+   backgroundAlpha: 1;
+   backgroundColor: #758189;
+   borderColor: #cccccc;
+   color: #ffffff;
+   themeColor: #0066ff;
+   textAlign: center;
+   fontWeight: normal;
+
+}
+
+.mySelectedTabs {
+   color: #ffffff;
+}
+
+.greyFill
+{
+	border-style: solid;
+	border-thickness: 0;
+	border-skin: ClassReference("com.af.common.SimpleGradientBorder");
+	/*fill-colors: #0099FF, #000099;  */
+	fill-colors: #333333, #666666;
+	corner-radius: 10;
+	drop-shadow-enabled: true;
+}

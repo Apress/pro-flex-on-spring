@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- Chapter 4 - Listing 4.4-->
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:view="view.*"
+	horizontalAlign="center" 
+	verticalAlign="middle">
+ 	
+  <view:NamespaceTest width="100%" height="100%" />
+    
+</mx:Application>

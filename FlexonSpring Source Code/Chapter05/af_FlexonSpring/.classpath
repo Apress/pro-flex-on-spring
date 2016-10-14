@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_FlexonSpring/libs/spring_2.5.5.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_FlexonSpring/libs/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="libs/flex-messaging-common.jar"/>
+	<classpathentry kind="lib" path="libs/flex-messaging-core.jar"/>
+	<classpathentry kind="lib" path="libs"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_FlexonSpring/libs/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/Files/Projects/eclipse/Apress/af_FlexonSpring/libs/spring-test-2.5.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

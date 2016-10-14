@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- Chapter 4 - Listing 4.11 -->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+
+    <!-- Define a data model for storing the date. -->
+    <mx:Model id="userData">
+        <userInfo>
+            <email>{emailInput.text}</email>
+            <phone>{phoneInput.text}</phone>
+        </userInfo>
+    </mx:Model>
+
+    <!-- Define the EmailValidator and PhoneNumberValidator. -->
+    <mx:EmailValidator 
+        source="{emailInput}" 
+        property="text"/>
+	
+	<mx:PhoneNumberValidator
+		source="{phoneInput}"
+		property="text" />
+		
+	<mx:Panel title="Validation through Data Bindings"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center">
+
+		<mx:Label text="Enter an email address:"/>
+	    <mx:TextInput id="emailInput"/>
+		<mx:TextInput id="phoneInput"/>
+		
+	 </mx:Panel>
+</mx:Application>
+

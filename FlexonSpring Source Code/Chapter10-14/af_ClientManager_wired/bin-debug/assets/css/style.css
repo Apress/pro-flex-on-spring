@@ -1,0 +1,73 @@
+ WindowedApplication 
+ { 
+       background-color:"0xFFFFFF"; 
+	   background-alpha:"0.5"; 
+ } 
+
+
+Panel
+{
+	borderColor: #999999;	
+}
+.blackBackground
+{
+	backgroundColor: #999999;
+}
+.loginTextInput
+{
+	backgroundAlpha: 0;
+ 	borderStyle: none;
+ 	themeColor: #000000;	
+}
+.loginMessageFont
+{
+	color: #FFFFFF;
+	fontWeight: bold;	
+}
+.canvasFont
+{
+	color: #CCCCCC;	
+}
+.headingFont20
+{
+	fontSize: 20;
+	fontWeight: bold;
+	color: #888888
+}
+.labelFontOrange
+{
+	color: #FFCC00;
+	fontSize: 16;
+	fontWeight: bold;
+}
+.labelFontWhite
+{
+	color: #FFFFFF;
+	fontSize: 16;
+	fontWeight: bold;
+}
+.temperatureFont
+{
+	fontWeight: bold;
+	fontSize: 18;
+}
+.clientListFont
+{
+	color: #FED206;
+	fontWeight: bold;
+	fontSize: 12;
+}
+.WeatherPanel
+{
+	borderStyle: solid;
+  	borderThickness: 2;
+  	borderColor: #72BAE6;
+	borderSkin: ClassReference("com.af.components.graphics.RoundedGradientBorder");
+	fillColors: #1463BC, #010B72; 
+	fillAlphas: 1, 1;
+	dropShadowEnabled: true;
+	topCornerRadius: 0;
+	bottomCornerRadius: 0;
+	cornerRadius: 0;
+	headerHeight: 0;
+}

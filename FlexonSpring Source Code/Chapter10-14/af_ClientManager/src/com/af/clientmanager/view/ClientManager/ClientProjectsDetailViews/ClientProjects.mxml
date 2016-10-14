@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%"
+	styleName="tabContainerSkin">
+	
+	<mx:TabNavigator borderStyle="solid" width="100%" height="100%">
+        <mx:VBox label="Projects" width="100%" height="100%">
+            <!-- projectInfo view goes here. -->
+        </mx:VBox>
+
+        <mx:VBox label="Description" width="100%" height="100%">
+            <!-- projectDescription view goes here. -->
+        </mx:VBox>
+
+        <mx:VBox label="Issues" width="100%" height="100%">
+            <!-- projectIssues view goes here. -->
+        </mx:VBox>  
+         
+        <mx:VBox label="Risks" width="100%" height="100%">
+            <!-- projectRisks view goes here. -->
+        </mx:VBox>   
+    </mx:TabNavigator>
+</mx:Canvas>

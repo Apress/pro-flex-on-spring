@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="remoting-service" 
+    class="flex.messaging.services.RemotingService">
+
+    <adapters>
+        <adapter-definition id="java-object" class="flex.messaging.services.remoting.adapters.JavaAdapter" default="true"/>
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-amf"/>
+    </default-channels>
+
+   <destination id="ecommerceService">
+      <properties>
+         <factory>spring</factory>
+         <source>ecommerceService</source>
+      </properties>
+   </destination>
+
+   <destination id="ecommerceJdbcService">
+      <properties>
+         <factory>spring</factory>
+         <source>ecommerceJdbcService</source>
+      </properties>
+   </destination>
+   
+   <destination id="ecommerceHibernateService">
+      <properties>
+         <factory>spring</factory>
+         <source>ecommerceHibernateService</source>
+      </properties>
+   </destination>
+</service>

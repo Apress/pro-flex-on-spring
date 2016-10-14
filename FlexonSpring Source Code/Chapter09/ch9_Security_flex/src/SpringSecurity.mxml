@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">	     
+
+   	<mx:Style source="assets/css/style.css"/>
+   	
+   	<mx:Script>
+   	<![CDATA[
+   	//	import model.UserData;
+   		import com.af.security.vo.UserProfile;
+   		import mx.rpc.events.ResultEvent;
+        import mx.rpc.events.FaultEvent;
+        import mx.controls.Alert;
+
+        private var userProfile:UserProfile = new UserProfile();
+
+		private function doLogin():void
+		{
+			securityService.authenticateUser(txtUserName.text,
+			                                 txtPassword.text);
+		}
+     //   public function isAuthorized():Boolean {
+       //     return userProfile != null && userProfile.username != 'roleAnonymous';
+       // }
+
+        private function authorizationResultHandler(event:ResultEvent):void
+        {
+      //     var userData:UserData = UserData.getInstance();
+        //    userData.authenticated = true;
+
+           // var tempObject:Object = event.result;
+           // var authorizedGroups:Array = tempObject.groups as Array;
+            userProfile.groups = event.result.groups as Array;
+            userProfile.userIsAdmin();
+
+        //    for(var i:int=0; i < obtainedRoles.length; i++) {
+         //   	Alert.show("Authed "+ obtainedRoles[i]);
+           //    userProfile.groups.push(obtainedRoles);//.addUserGroup(obtainedRoles[i])
+       //     }
+	    }
+        private function authorizationFaultHandler(event:FaultEvent):void
+        {
+            Alert.show(event.fault.toString());
+        }
+        ]]>
+    </mx:Script>
+    
+    <mx:RemoteObject id="securityService" destination="securityService" 
+    	endpoint="http://localhost:8080/SpringSecurity/messagebroker/amf"
+                     fault="authorizationFaultHandler(event)"
+                     result="authorizationResultHandler(event)">
+	</mx:RemoteObject>
+
+   <mx:Panel title="Spring Security Example"  
+		paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+	    horizontalAlign="center" width="506" height="300"
+	    styleName="blackBackground" label="horizontal">
+		<mx:HBox width="100%" height="100%">
+			<mx:VBox id="loginBox"  
+				backgroundImage="assets/images/LoginScreen.png">
+				<mx:Canvas width="370" height="227" styleName="canvasFont">
+					<mx:VBox x="50" y="9" verticalGap="-1">
+						<mx:HBox horizontalGap="0" x="26" y="14">
+							<mx:Label text="APPFOUNDATION" styleName="labelFontOrange"/>
+							<mx:Label text="LOG IN" styleName="labelFontWhite"/>
+						</mx:HBox>
+						<mx:TextArea backgroundAlpha="0" wordWrap="true" borderStyle="none" 
+							selectable="false" editable="false"
+							text="Please enter your username and password below." 
+							width="288" height="35"/>
+					</mx:VBox>
+					<mx:TextInput id="txtUserName" width="278" height="18" enter="doLogin()" 
+						 y="67" x="52" styleName="loginTextInput"/>
+					<mx:TextInput id="txtPassword" width="278" height="18" enter="doLogin()" displayAsPassword="true"
+						y="88" x="52" styleName="loginTextInput"/>		
+					<mx:VBox width="100%" y="101" horizontalAlign="center">
+						<mx:Text id="boxLoginMessage" />
+						<mx:Label id="lblLoginMsg" styleName="loginMessageFont"/>
+					</mx:VBox> 
+					<mx:Button label="LOG IN" styleName="loginButton" click="doLogin()" 
+						x="276" y="128" width="65" height="31"/>
+				</mx:Canvas>
+			</mx:VBox>
+			<mx:VBox borderStyle="solid" visible="{userProfile.isAdmin}" showEffect="Dissolve">
+			    <mx:Image source="assets/images/KaitBug.png" />
+			    <mx:Label text="Authorized"/>
+			</mx:VBox>
+		</mx:HBox>
+	</mx:Panel>
+</mx:Application>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cairngorm:ServiceLocator 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:cairngorm="com.adobe.cairngorm.business.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.af.clientmanager.model.ModelLocator;
+			
+			[Bindable]
+	   		public var model : ModelLocator = ModelLocator.getInstance();
+		]]>
+	</mx:Script>
+ 	    		  
+	<mx:RemoteObject endpoint="{model.SERVICE_ENDPOINT}"
+    	id="clientService"
+    	destination="clientService"
+		showBusyCursor="true">
+    </mx:RemoteObject>
+    
+    <mx:RemoteObject endpoint="{model.SERVICE_ENDPOINT}"
+    	id="invoiceService"
+    	destination="invoiceService"
+		showBusyCursor="true">
+    </mx:RemoteObject>
+ 
+    <mx:RemoteObject endpoint="{model.SERVICE_ENDPOINT}"
+    	id="mediaService"
+    	destination="mediaService"
+		showBusyCursor="true">
+    </mx:RemoteObject>
+    
+    <mx:RemoteObject endpoint="{model.SERVICE_ENDPOINT}"
+    	id="projectService"
+    	destination="projectService"
+		showBusyCursor="true">
+    </mx:RemoteObject>
+    
+    <mx:RemoteObject endpoint="{model.SECURITY_ENDPOINT}"
+    	id="securityService"
+    	destination="securityService"
+		showBusyCursor="true">
+    </mx:RemoteObject>
+    
+</cairngorm:ServiceLocator>

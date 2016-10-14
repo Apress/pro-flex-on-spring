@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Product">
+
+	<typeAlias alias="product" type="com.af.core.domain.Product"/>
+
+    <resultMap id="productsResult" class="product">
+        <result property="productID"             column="ProductID"/>
+        <result property="SKU"                   column="SKU" />
+        <result property="productName" 	         column="ProductName" />
+        <result property="productDescription"    column="ProductDescription" />
+        <result property="supplierID"            column="SupplierID" />
+        <result property="categoryID"            column="CategoryID" />
+        <result property="unitQuantity"          column="UnitQuantity" />
+        <result property="unitPrice"             column="UnitPrice" />
+        <result property="MSRP"                  column="MSRP" />
+        <result property="availableSize"         column="AvailableSize" />
+        <result property="availableColors"       column="AvailableColors" />
+        <result property="size"                  column="Size" />
+        <result property="color"                 column="Color" />
+        <result property="image"                 column="Image" />
+    </resultMap>
+    
+    <sql id="product_table" >
+        product
+    </sql>
+    
+    <select id="getProducts" resultMap="productsResult" parameterClass="product">
+        select * from <include refid="product_table"/>
+    </select>
+    
+    <insert id="insertProduct" parameterClass="product">	
+        insert into <include refid="product_table"/>(SKU, 
+                                                      ProductName, 
+                                                      ProductDescription,
+                                                      SupplierID,
+                                                      CategoryID,
+                                                      UnitQuantity,
+                                                      UnitPrice,
+                                                      MSRP,
+                                                      AvailableSize,
+                                                      AvailableColors,
+                                                      Size,
+                                                      Color,
+                                                      Image)
+                          values(#SKU#,
+                                 #productName#,
+                                 #productDescription#,
+                                 #supplierID#,
+                                 #categoryID#,
+                                 #unitQuantity#,
+                                 #unitPrice#,
+                                 #MSRP#,
+                                 #availableSize#,
+                                 #availableColors#,
+                                 #size#,
+                                 #color#,
+                                 #image#)
+		<selectKey resultClass="int">
+            SELECT distinct last_insert_id() FROM <include refid="product_table" />
+        </selectKey>
+    </insert>
+    
+	<update id="updateProduct" parameterClass="product">
+        update <include refid="product_table"/>
+           set SKU                = #SKU#,
+               ProductName        = #productName#,
+               ProductDescription = #productDescription#,
+               SupplierID         = #supplierID#,
+               CategoryID         = #categoryID#,
+               UnitQuantity       = #unitQuantity#,
+               UnitPrice          = #unitPrice#,
+               MSRP               = #MSRP#,
+               AvailableSize      = #availableSize#,
+               AvailableColors    = #availableColors#,
+               Size               = #size#,
+               Color              = #color#,
+               Image              = #image#
+        where ProductID = #productID#
+    </update>
+    
+    <delete id="deleteProduct" parameterClass="int">
+        delete from <include refid="product_table"/> where ProductID = #value#
+    </delete>
+</sqlMap>

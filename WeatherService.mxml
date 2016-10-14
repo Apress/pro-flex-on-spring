@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chapter 6 - Listing 6.2-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="*">
+
+	<mx:Style source="assets/css/style.css"/>
+		
+	<mx:WebService id="weatherService" 
+		wsdl="http://www.webservicex.net/WeatherForecast.asmx?WSDL" 
+		useProxy="false" showBusyCursor="true"
+	    fault="onFault(event)" 
+	    result="onResult(event)" >
+	    <mx:operation name="GetWeatherByZipCode" resultFormat="e4x" >
+	     	<mx:request>
+	        	<ZipCode>{zipcode.text}</ZipCode>
+	      	</mx:request>
+	    </mx:operation>
+	</mx:WebService>
+	
+	<mx:Script>
+	<![CDATA[
+		import mx.rpc.events.FaultEvent;
+		import mx.messaging.SubscriptionInfo;
+	  	import mx.controls.dataGridClasses.DataGridColumn;
+	  	import mx.rpc.events.ResultEvent;
+	  	import mx.managers.CursorManager; 
+	  	import mx.controls.Alert;
+	  
+	  	default xml namespace = "http://www.webservicex.net"; 
+	
+	  	[Bindable] private var xmlResult:XML;
+	  	[Bindable] private var weatherData:XMLList;
+	  	[Bindable] private var location:String;
+	  	
+	  	[Embed(source="assets/images/icon_DefaultImage.png")]
+        public var defaultImage:Class;
+	  	
+	  	private function getLocalWeather():void
+	  	{
+	  		weatherService.GetWeatherByZipCode.send();
+	  	}
+	  
+	  	private function onResult(event:ResultEvent):void
+	  	{
+	    	xmlResult = XML(event.result);
+	             
+		    var xmlResultNode:XML = xmlResult.GetWeatherByZipCodeResult[0]; 
+		    var xmlDetailsNode:XML = xmlResultNode.Details[0];
+		    
+		    location = xmlResultNode.PlaceName.text() + ", "
+		    	+ xmlResultNode.StateCode.text();
+		     
+		    weatherData = xmlDetailsNode.WeatherData; 
+	  	}
+	  	private function onFault(event:FaultEvent):void
+		{
+			Alert.show(event.fault.faultString, 'Error');
+		}
+	  	private function setRendererObject(obj:Object):Object
+	  	{
+		  	var xmlItem:XML = XML(obj); 
+		  	var rObj:Object = new Object();
+		  	var day:String = xmlItem.Day.text().toString();
+		  	
+		  	day = day.substr(0,day.indexOf(","));
+		  	rObj.Day = day;
+		  	rObj.WeatherImage = xmlItem.WeatherImage.text();
+		  	rObj.MaxTemperatureF = xmlItem.MaxTemperatureF.text();
+		  	rObj.MinTemperatureF = xmlItem.MinTemperatureF.text();
+			//The last node of this Web Service returns empty weather data
+			//This is just to account for the image being blank in the item renderer
+			if(rObj.WeatherImage.toString() == "")
+			{
+				rObj.WeatherImage = defaultImage.toString();
+			}
+		  	return rObj;
+	  	}
+		]]> 
+	</mx:Script>
+	
+	
+	<mx:Panel id="myPanel" width="521" height="245" title="WebService Example"
+	      paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"
+	      horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:HBox>
+			<mx:Label width="100%" text="Please enter a zip code:"/>
+		    <mx:TextInput id="zipcode" text="75025"/>
+		    <mx:Button label="Get Weather" click="getLocalWeather()"/>   
+	  	</mx:HBox>
+	
+	  	<mx:Text id="txtLocation" htmlText="{location}" styleName="locationFont"/>
+	
+	  	<mx:HBox>
+	         <mx:Repeater id="rp" dataProvider="{weatherData}">
+	            <WeatherRenderer weatherItem="{setRendererObject(rp.currentItem)}" 
+	            	verticalGap="0" />
+	        </mx:Repeater>
+	    </mx:HBox>
+	  </mx:Panel> 
+</mx:Application>

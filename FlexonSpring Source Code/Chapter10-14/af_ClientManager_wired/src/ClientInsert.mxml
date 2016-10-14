@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:services="com.af.clientmanager.services.*" xmlns:control="com.af.clientmanager.control.*" xmlns:Renderers="com.af.clientmanager.view.Renderers.*">	     
+
+   	<mx:Style source="assets/css/style.css"/>
+   	
+   	<mx:Script>
+   	<![CDATA[
+   		import com.af.clientmanager.model.ModelLocator;
+   		import com.af.clientmanager.control.commands.events.GetClientsEvent;
+   		import com.adobe.cairngorm.control.CairngormEventDispatcher;
+   		import com.af.clientmanager.model.vo.ClientVO;
+   	//	import model.UserData;
+  // 		import com.af.security.vo.UserProfile;
+   		import mx.rpc.events.ResultEvent;
+        import mx.rpc.events.FaultEvent;
+        import mx.controls.Alert;
+			
+		[Bindable] 
+		private var model:ModelLocator = ModelLocator.getInstance();
+			
+ //       private var userProfile:UserProfile = new UserProfile();
+
+		private function doLogin():void
+		{
+			//securityService.authenticateUser(txtUserName.text,
+			 //                                txtPassword.text);
+		}
+     //   public function isAuthorized():Boolean {
+       //     return userProfile != null && userProfile.username != 'roleAnonymous';
+       // }
+
+        private function authorizationResultHandler(event:ResultEvent):void
+        {
+      //     var userData:UserData = UserData.getInstance();
+        //    userData.authenticated = true;
+
+           // var tempObject:Object = event.result;
+           // var authorizedGroups:Array = tempObject.groups as Array;
+         //   userProfile.groups = event.result.groups as Array;
+          //  userProfile.userIsAdmin();
+
+        //    for(var i:int=0; i < obtainedRoles.length; i++) {
+         //   	Alert.show("Authed "+ obtainedRoles[i]);
+           //    userProfile.groups.push(obtainedRoles);//.addUserGroup(obtainedRoles[i])
+       //     }
+	    }
+        private function authorizationFaultHandler(event:FaultEvent):void
+        {
+            Alert.show(event.fault.toString());
+        }
+        private function saveClient():void
+        {
+        	var client:ClientVO = new ClientVO();
+        	client.assocobjectID = 123;
+        	///client.objectIdentifier = 321;
+        	client.clientName = clientName.text;
+        	client.link = link.text;
+        	client.description = description.text;
+        	client.notes = notes.text;
+        	
+        	clientService.updateClient(client);
+        	
+        	CairngormEventDispatcher.getInstance().dispatchEvent(new GetClientsEvent());
+        	//clientService.getClients();
+        }
+        ]]>
+    </mx:Script>
+    <!-- ========================================================================== -->
+	<!-- the ServiceLocator where we specify the remote services -->
+	<services:Services id="services"/>
+	
+	<!-- the FrontController, containing Commands-to-Event mappings -->
+	<control:MainController id="mainController" />
+	<!-- ========================================================================== -->
+	
+    <mx:RemoteObject id="clientService" destination="clientService" 
+    	endpoint="http://localhost:8080/af_Central/messagebroker/amf"
+                     fault="authorizationFaultHandler(event)"
+                     result="authorizationResultHandler(event)">
+	</mx:RemoteObject>
+
+	<mx:Form borderStyle="solid">
+        <mx:FormItem label="Name">
+            <mx:TextInput id="clientName"/>
+        </mx:FormItem>
+        <mx:FormItem label="Link">
+            <mx:TextInput id="link"/>
+        </mx:FormItem>
+        <mx:FormItem label="Description">
+            <mx:TextInput id="description"/>
+        </mx:FormItem>
+        <mx:FormItem label="Notes">
+            <mx:TextInput id="notes"/>
+        </mx:FormItem>
+        <mx:Button label="submit" click="saveClient()"/>
+    </mx:Form>
+    
+    <mx:VBox width="278" height="419">  
+		<mx:Repeater id="rp" dataProvider="{model.clientsDP}">
+			<Renderers:ClientListRenderer  clientData="{rp.currentItem}"/>		
+		</mx:Repeater>
+	</mx:VBox>
+	
+	<mx:DataGrid dataProvider="{model.clientsDP}"/>
+</mx:Application>

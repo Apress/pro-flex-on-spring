@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%" height="100%"
+    horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+    verticalAlign="middle" horizontalAlign="center">
+	   	
+	<mx:Style source="assets/css/style.css"/>
+   	
+   	<mx:Script>
+   	<![CDATA[
+   		import com.af.clientmanager.control.commands.events.AuthenticateUserEvent;
+   		import com.adobe.cairngorm.control.CairngormEventDispatcher;
+   		import com.af.clientmanager.model.vo.UserProfileVO;
+   		import mx.rpc.events.ResultEvent;
+        import mx.rpc.events.FaultEvent;
+        import mx.controls.Alert;
+		import com.af.clientmanager.model.ModelLocator;
+
+	  	[Bindable]
+	   	public var model : ModelLocator = ModelLocator.getInstance();
+	   	
+        private var userProfile:UserProfileVO = new UserProfileVO();
+
+		private function doLogin():void
+		{
+			CairngormEventDispatcher.getInstance().dispatchEvent(
+				new AuthenticateUserEvent(txtUserName.text,
+			                              txtPassword.text));
+		}
+
+        ]]>
+    </mx:Script>
+
+   <mx:VBox id="loginBox">
+		<mx:VBox verticalGap="0">
+			<mx:VBox x="50" y="9" verticalGap="0">
+				<mx:HBox horizontalGap="0" x="26" y="14">
+					<mx:Label text="Af - CLIENT MANAGER" styleName="themedLoginFont" />
+					<mx:Label text="LOG IN" styleName="largeLoginFont"/>
+				</mx:HBox>
+					<mx:Label selectable="false"
+						text="Enter your username and password below." 
+						width="288" styleName="loginFont"/>
+			</mx:VBox>
+			<mx:Spacer height="5" />
+			<mx:TextInput id="txtUserName" width="278" height="30" enter="doLogin()" 
+				styleName="loginTextInput"/>
+			<mx:Spacer height="5" />
+			<mx:TextInput id="txtPassword" width="278" height="30" 
+				enter="doLogin()" displayAsPassword="true"
+				styleName="loginTextInput"/>		
+			
+			<mx:VBox width="100%" y="101" horizontalAlign="center">
+				<mx:Text id="boxLoginMessage" />
+				<mx:Label id="lblLoginMsg" styleName="loginFont"/>
+			</mx:VBox> 
+			<mx:Button label="OK" click="doLogin()" 
+				x="276" y="128" width="65" height="31"/>
+		</mx:VBox>
+	</mx:VBox>
+</mx:VBox>

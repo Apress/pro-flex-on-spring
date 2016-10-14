@@ -1,0 +1,33 @@
+Application{
+	backgroundColor: #FFFFFF;	
+}
+
+Panel
+{
+	borderColor: #999999;	
+}
+
+.temperatureFont
+{
+	fontWeight: bold;
+	fontSize: 18;
+}
+.locationFont
+{
+	fontWeight: bold;
+	fontSize: 16;
+}
+.WeatherPanel
+{
+	borderStyle: solid;
+  	borderThickness: 2;
+  	borderColor: #72BAE6;
+	borderSkin: ClassReference("com.af.components.graphics.RoundedGradientBorder");
+	fillColors: #FFFFFF, #C6E3F6; 
+	fillAlphas: 1, 1;
+	dropShadowEnabled: true;
+	topCornerRadius: 12;
+	bottomCornerRadius: 12;
+	cornerRadius: 12;
+	headerHeight: 30;
+}

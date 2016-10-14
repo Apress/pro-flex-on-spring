@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%" 
+	creationComplete="handleCreationComplete()">
+
+    <mx:Script>  
+        <![CDATA[
+        	import mx.core.Application;
+        	import mx.controls.Alert;
+            import mx.events.ResizeEvent; 
+            
+            // import maps classes.
+            import com.yahoo.maps.api.YahooMap; 
+            import com.yahoo.maps.api.YahooMapEvent; 
+            import com.yahoo.maps.api.core.location.Address; 
+            import com.yahoo.maps.webservices.geocoder.GeocoderResult; 
+            import com.yahoo.maps.webservices.geocoder.events.GeocoderEvent; 
+
+			import com.af.clientmanager.model.ModelLocator;
+
+		  	[Bindable]
+		   	public var model : ModelLocator = ModelLocator.getInstance();
+
+            private var _yahooMap:YahooMap; 
+            private var _address:Address; 
+            
+            public function set changeAddress(value:String):void
+		    {
+		        _address = new Address(model.selectedClient.addressLine1 + " " + model.selectedClient.city + "," + model.selectedClient.state);
+		        handleCreationComplete();
+		    }
+            private function handleCreationComplete():void  
+            { 
+                // this examples uses an application id passed into the app via FlashVars.
+                // Get your own from the Yahoo! Developer Network @ http://developer.yahoo.com/wsregapp/
+                var appid:String = "AVRZ_S_V34GfZhJzOdtimdr2p_DAbiFbPbwj2lJLq_OeWYiO0YP9VuT9V0MmnoTd";
+                
+                // create a new YahooMap object.
+                _yahooMap = new YahooMap(); 
+                
+                // list for the MAP_INITIALIZE event from YahooMap
+                _yahooMap.addEventListener(YahooMapEvent.MAP_INITIALIZE, handleMapInitialize);
+                
+                // initialize the map, passing the app-id, width and height.
+                _yahooMap.init(appid,mapContainer.width,mapContainer.height);
+                 
+                mapContainer.addChild(_yahooMap); 
+                mapContainer.addEventListener(ResizeEvent.RESIZE, handleContainerResize); 
+                 
+                _yahooMap.addPanControl(); 
+                _yahooMap.addZoomWidget(); 
+                _yahooMap.addTypeWidget();  
+                
+            } 
+             
+            private function handleMapInitialize(event:YahooMapEvent):void  
+            { 
+                // creating a new address object, passing our address string as the single parameter. 
+                _address = new Address(model.selectedClient.addressLine1 + " " + model.selectedClient.city + "," + model.selectedClient.state); 
+                 
+                // listen for the GEOCODER_SUCCESS event dispatched when the data comes back from the webservice.
+                _address.addEventListener(GeocoderEvent.GEOCODER_SUCCESS, handleGeocodeSuccess);
+                
+                // send the geocode request.
+                _address.geocode(); 
+            } 
+             
+            private function handleGeocodeSuccess(event:GeocoderEvent):void  
+            { 
+                // retrieve the first result returned by the geocoder. 
+                var result:GeocoderResult = _address.geocoderResultSet.firstResult; 
+                
+                // then we&apos;ll get the zoom level and center latlon to position the map on. 
+                _yahooMap.zoomLevel = result.zoomLevel; 
+                _yahooMap.centerLatLon = result.latlon; 
+                
+            } 
+             
+            private function handleContainerResize(event:ResizeEvent):void {
+                // set the size of the map based on its containers size.
+                _yahooMap.setSize(mapContainer.width,mapContainer.height); 
+            }
+        ]]>  
+    </mx:Script> 
+    
+    <mx:Binding source="lblAddr.text" destination="changeAddress"/>
+    	
+    <mx:VBox width="100%" height="100%" >
+        <mx:Label id="lblAddr" text="{model.selectedClient.addressLine1} {model.selectedClient.city},{model.selectedClient.state}"/>
+        <mx:UIComponent id="mapContainer" width="100%" height="100%"/>
+    </mx:VBox>
+</mx:Canvas>

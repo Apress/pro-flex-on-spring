@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- Chapter 6 - Listing 6.1-->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%"
+	verticalScrollPolicy="off" horizontalScrollPolicy="off" 
+	verticalGap="0"
+	xmlns:common="com.af.common.*"
+	creationCompleteEffect="{moveItem}">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.formatters.DateFormatter;
+			import flash.events.Event;
+			
+			[Bindable]
+			public var blogItem:Object = new Object();
+		
+		    private function formatDate(date:String):String 
+		    {
+                var df:DateFormatter = new DateFormatter();
+                df.formatString = "DD MMM YY";
+                return df.format(date);
+            }
+            private function processURL(url:String):void 
+            {
+                var request:URLRequest = new URLRequest(url);
+                navigateToURL(request);
+            }
+			public function rollOutHandler():void
+			{
+				container.setStyle("fillcolors", 0xFFFFFF);
+			}
+			
+			public function rollOverHandler():void
+			{
+				container.setStyle("fillcolors", [0xF2F2F2, 0x000000]);
+			}
+		]]>
+	</mx:Script>	
+	<mx:HBox id="container" width="100%" horizontalAlign="left" creationCompleteEffect="Fade" 
+            	click="processURL(blogItem.link)" verticalGap="0"
+            	rollOver="{rollOverHandler()}" rollOut="{rollOutHandler()}">
+                <mx:Label width="25%" text="{formatDate(blogItem.pubDate)}" color="0x999999"/>
+                <mx:TextArea paddingLeft="10" paddingRight="10" editable="false" selectable="false"
+                    width="100%" borderStyle="none" backgroundAlpha="0"
+                    useHandCursor="true" buttonMode="true" mouseChildren="false"
+                    htmlText="{blogItem.title}" ></mx:TextArea>
+ 	</mx:HBox>
+    <mx:HRule width="100%" />
+    <mx:Move id="moveItem" target="container" xFrom="500" xTo="0"/>
+</mx:VBox>
+

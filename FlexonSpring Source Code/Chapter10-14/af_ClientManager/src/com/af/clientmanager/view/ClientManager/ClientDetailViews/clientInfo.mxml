@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import com.af.clientmanager.view.Dialogs.FileUploadDialog;
+		import com.af.clientmanager.model.ModelLocator;
+
+	  	[Bindable]
+	   	public var model : ModelLocator = ModelLocator.getInstance();
+	   	
+	   	private function openWebSite(URL:String):void
+		{
+			var u:URLRequest = new URLRequest(URL); 
+			navigateToURL(u,"_blank");
+		}
+		private function showFileUploadDialog():void  
+		{	
+			var pop1:FileUploadDialog = FileUploadDialog(
+                    PopUpManager.createPopUp(this, FileUploadDialog, true));
+   
+			PopUpManager.centerPopUp(pop1);
+        }
+		]]>
+	</mx:Script>
+	
+	<mx:Binding source="tiName.text" destination="model.selectedClient.clientName"/>
+	<mx:Binding source="tiAddress.text" destination="model.selectedClient.addressLine1"/>
+	<mx:Binding source="tiCity.text" destination="model.selectedClient.city"/>
+	<mx:Binding source="tiState.text" destination="model.selectedClient.state"/>
+	<mx:Binding source="tiZip.text" destination="model.selectedClient.zip"/>
+	<mx:Binding source="tiPhone.text" destination="model.selectedClient.phone"/>
+	<mx:Binding source="tiLink.text" destination="model.selectedClient.link"/>
+		
+	<mx:PhoneNumberValidator
+		source="{tiPhone}"
+		property="text" />
+		
+	<mx:Form>
+        <mx:FormItem label="Name" required="true">
+            <mx:TextInput id="tiName" width="250" height="30" text="{model.selectedClient.clientName}"/>
+        </mx:FormItem>
+        <mx:FormItem label="Address">
+            <mx:TextInput id="tiAddress" width="250" text="{model.selectedClient.addressLine1}" />
+        </mx:FormItem>
+        <mx:FormItem label="City">
+            <mx:TextInput id="tiCity" width="250" text="{model.selectedClient.city}" />
+        </mx:FormItem>
+        <mx:FormItem label="State">
+            <mx:TextInput id="tiState" width="250" text="{model.selectedClient.state}" />
+        </mx:FormItem>
+        <mx:FormItem label="Zip">
+            <mx:TextInput id="tiZip" width="250" text="{model.selectedClient.zip}" />
+        </mx:FormItem>
+        <mx:FormItem label="Phone">
+            <mx:TextInput id="tiPhone" width="250" text="{model.selectedClient.phone}" />
+        </mx:FormItem>
+        <mx:FormItem label="Web Site">
+            <mx:TextInput id="tiLink" width="250" text="{model.selectedClient.link}" />
+        </mx:FormItem>
+        <mx:FormItem paddingTop="8">
+            <mx:HBox>
+            	<mx:Button label="Open Web Site" click="openWebSite(model.selectedClient.link)"/>
+                <mx:Button label="Upload Image" width="100" click="showFileUploadDialog()"/>
+            </mx:HBox>
+        </mx:FormItem>
+    </mx:Form>
+    <mx:VBox width="100%" height="100%" paddingTop="15">  
+	     <mx:VBox styleName="frame" minHeight="200" minWidth="300"
+	    	paddingBottom="3" paddingLeft="3" paddingRight="3" paddingTop="3">    
+	         <mx:Image id="img" y="14" width="200" complete="img.visible=true"/>
+	    </mx:VBox>
+	</mx:VBox>
+</mx:HBox>

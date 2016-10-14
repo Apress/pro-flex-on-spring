@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chapter 4 - Listing 4.8-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical"
+	horizontalAlign="center" verticalAlign="middle"
+	initialize="initComp();">
+   
+   <mx:Style source="assets/css/style.css"/>
+   
+   	<!-- Model: for contacts -->
+    <mx:Model id="contacts">
+        <contact>
+            <name>
+                <first/> 
+                <last/> 
+            </name>
+        </contact>
+    </mx:Model> 
+    
+    <mx:Script>
+        <![CDATA[
+            import mx.binding.utils.BindingUtils;
+                        
+            private function initComp():void
+            {
+                // Updates the model
+                BindingUtils.bindProperty(contacts, "name.first", firstNameInput, "text");
+                BindingUtils.bindProperty(contacts, "name.last", lastNameInput, "text");
+                
+                // Reads from the model to update the status text
+                BindingUtils.bindProperty(firstName, "text", contacts, "name.first");
+                BindingUtils.bindProperty(lastName, "text", contacts, "name.last");
+            }
+        ]]>
+    </mx:Script>
+
+    <!-- View: User Interface components and containers -->
+    <mx:Panel title="BindingUtils Class in ActionScript"
+        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+        horizontalAlign="center">
+    	
+    	<mx:Form>
+
+	        <mx:FormItem label="First Name" >
+	            <mx:TextInput id="firstNameInput"/>
+	        </mx:FormItem>
+	        
+	        <mx:FormItem label="Last Name">
+	            <mx:TextInput id="lastNameInput"/>
+	        </mx:FormItem>
+
+			<mx:FormItem label="First Name" >
+	            <mx:Label id="firstName" text="{contacts.name.first}" 
+	            	fontSize="15" fontWeight="bold" />
+	        </mx:FormItem>
+	        
+	        <mx:FormItem label="Last Name">
+	            <mx:Label id="lastName" text="{contacts.name.last}" 
+	            	fontSize="15" fontWeight="bold" />
+	        </mx:FormItem>
+    	</mx:Form>
+
+    </mx:Panel> 
+
+</mx:Application>

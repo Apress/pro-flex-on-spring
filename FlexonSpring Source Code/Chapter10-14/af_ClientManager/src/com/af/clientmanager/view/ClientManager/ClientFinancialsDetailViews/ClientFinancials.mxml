@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="100%"
+		styleName="tabContainerSkin">
+	
+	<mx:TabNavigator borderStyle="solid" width="100%" height="100%">
+        <mx:VBox label="Status" width="100%" height="100%">
+            <!-- financialStatus view goes here. -->
+        </mx:VBox>
+
+        <mx:VBox label="Invoices" width="100%" height="100%">
+            <!-- invoices view goes here. -->
+        </mx:VBox>
+    </mx:TabNavigator>
+</mx:Canvas>

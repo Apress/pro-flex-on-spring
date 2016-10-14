@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%" 
+	paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5"
+	xmlns:Renderers="com.af.clientmanager.view.Renderers.*">
+	
+	<mx:Script>
+	<![CDATA[
+		import com.af.clientmanager.view.Dialogs.FileUploadDialog;
+		import mx.managers.PopUpManager;
+		import com.af.clientmanager.view.Dialogs.DeleteContactConfirmationDialog;
+		import com.af.clientmanager.model.vo.ClientContactsVO;
+		import com.adobe.cairngorm.control.CairngormEventDispatcher;
+		import com.af.clientmanager.control.commands.events.clientEvents.*;
+		import com.af.clientmanager.model.ModelLocator;
+	
+		[Bindable] 
+		private var model:ModelLocator = ModelLocator.getInstance();
+		
+		[Embed(source="/assets/packs/cleanSkin/icon_contactDefaultImage.png")]
+        [Bindable]
+        public var imgCls:Class;
+            
+		private function insertContact():void
+		{
+			var contact:ClientContactsVO = new ClientContactsVO;
+			// Set the client to contact relationship
+			contact.assocobjectID = model.selectedClient.objectIdentifier;
+			contact.contactName = tiName.text;
+			contact.jobTitle = tiTitle.text;
+			contact.phoneWork = tiPhoneWork.text;
+			contact.phoneCell = tiPhoneCell.text;
+			contact.email = tiEmail.text;
+			contact.responsibility = tiResponsibility.text;
+		//	contact.notes = tiNotes.text;
+			
+			CairngormEventDispatcher.getInstance().dispatchEvent(new InsertClientContactEvent(contact));
+		}
+		private function updateContact():void
+		{
+			CairngormEventDispatcher.getInstance().dispatchEvent(new UpdateClientContactEvent(ClientContactsVO(model.selectedContact)));
+		}
+	    private function deleteContact():void
+	   	{
+	   		// Don't try to delete unless a client is selected
+	   		if(model.selectedContact.objectIdentifier > 0)
+	   		{
+		   		var pop1:DeleteContactConfirmationDialog = DeleteContactConfirmationDialog(
+	                    PopUpManager.createPopUp(this, DeleteContactConfirmationDialog, true));
+	            
+	            pop1.confirmationMessageTitle = "Delete Confirmation";   
+				pop1.confirmationMessageBody = "Are you sure you want to delete:  " + model.selectedContact.contactName;
+				
+				PopUpManager.centerPopUp(pop1); 
+	   		}
+	   	}
+	   	private function showFileUploadDialog():void  
+		{	
+			var pop1:FileUploadDialog = FileUploadDialog(
+                    PopUpManager.createPopUp(this, FileUploadDialog, true));
+   
+			PopUpManager.centerPopUp(pop1);
+        }
+		private function imageError():void
+		{
+			contactImage.source=imgCls;
+		}
+		]]>
+	</mx:Script>
+	
+	<mx:Binding source="tiName.text" destination="model.selectedContact.contactName"/>
+	<mx:Binding source="tiTitle.text" destination="model.selectedContact.jobTitle"/>
+	<mx:Binding source="tiPhoneWork.text" destination="model.selectedContact.phoneWork"/>
+	<mx:Binding source="tiPhoneCell.text" destination="model.selectedContact.phoneCell"/>
+	<mx:Binding source="tiEmail.text" destination="model.selectedContact.email"/>
+	<mx:Binding source="tiResponsibility.text" destination="model.selectedContact.responsibility"/>
+	
+    <mx:EmailValidator 
+        source="{tiEmail}" 
+        property="text"/>
+	
+	<mx:PhoneNumberValidator
+		source="{tiPhoneWork}"
+		property="text" />
+		
+	<mx:PhoneNumberValidator
+		source="{tiPhoneCell}"
+		property="text" />
+
+	<mx:HBox width="100%" height="100%">
+		<mx:VBox width="40%" height="100%" styleName="frame"
+			horizontalAlign="center" verticalAlign="middle"
+			paddingTop="10"> 
+			<mx:Label text="Contact List" styleName="heading" />
+			<mx:List id="contactList" width="100%" height="100%" 
+				dataProvider="{model.contactsDP}" labelField="contactName"
+				change="{model.selectedContact=ClientContactsVO(contactList.selectedItem)}"/>
+		</mx:VBox>
+	    <mx:VBox width="20%" height="100%"> 
+	        <mx:HBox>
+	            <mx:Button label="Add" width="75" click="insertContact()"/>
+	            <mx:Button label="Update" width="75" click="updateContact()"/>
+	            <mx:Button label="Delete" width="75" click="deleteContact()"/>
+	        </mx:HBox>
+	        <mx:VBox styleName="frame"
+	        	paddingBottom="3" paddingLeft="3" paddingRight="3" paddingTop="3">    
+	            <mx:Image id="contactImage" width="100%" height="100%" 
+	        	    ioError="imageError()" source="{imgCls}"/>
+	        </mx:VBox>
+	        <mx:Button label="Upload Image" click="showFileUploadDialog()"/>
+	    </mx:VBox>
+		<mx:VBox width="80%" height="100%">  
+			<mx:Form width="100%">
+		        <mx:FormItem label="Name" required="false">
+		            <mx:TextInput id="tiName" 
+		            	text="{model.selectedContact.contactName}"
+		            	width="250"/>
+		        </mx:FormItem>
+		
+		        <mx:FormItem label="Title" required="false">
+		            <mx:HBox>
+		                <mx:TextInput id="tiTitle" 
+		                	text="{model.selectedContact.jobTitle}" 
+		                	width="250"/>
+		            </mx:HBox>
+		        </mx:FormItem>
+				
+		        <mx:FormItem label="Work" required="false">
+		            <mx:HBox>
+		                <mx:TextInput id="tiPhoneWork" 
+		                	text="{model.selectedContact.phoneWork}" 
+		                	width="250"/>
+		            </mx:HBox>
+		        </mx:FormItem>
+		        
+		        <mx:FormItem label="Cell" required="false">
+		            <mx:HBox>
+		                <mx:TextInput id="tiPhoneCell" 
+		                	text="{model.selectedContact.phoneCell}" 
+		                	width="250"/>
+		            </mx:HBox>
+		        </mx:FormItem>
+		        			
+				 <mx:FormItem label="Email" required="false">
+		            <mx:HBox>
+		                <mx:TextInput id="tiEmail" 
+		                	text="{model.selectedContact.email}" 
+		                	width="250"/>
+		            </mx:HBox>
+		        </mx:FormItem>
+		    </mx:Form>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox width="100%" height="20%">
+		<mx:Label text="Notes:" styleName="heading" />
+		<mx:TextArea id="tiResponsibility" 
+			text="{model.selectedContact.responsibility}" 
+			width="100%" height="100%" />
+	</mx:HBox>
+</mx:VBox>

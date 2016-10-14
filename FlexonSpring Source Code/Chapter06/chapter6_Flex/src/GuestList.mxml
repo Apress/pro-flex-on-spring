@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chapter 6 - Listing 6.5-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Style source="assets/css/style.css"/>
+	
+	<mx:RemoteObject id="ro" 
+		destination="guestService"
+		endpoint="http://localhost:8080/blazeds/spring/messagebroker/amf"
+		result="resultHandler(event)"
+		fault="faultHandler(event)"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.utils.ObjectUtil;
+			import mx.controls.Alert;
+			import mx.utils.StringUtil;
+
+			[Bindable]
+			private var guestListDP:ArrayCollection = new ArrayCollection();
+			
+			private function resultHandler(event:ResultEvent):void
+			{
+				guestListDP = ArrayCollection(event.result);
+			}
+			
+			private function faultHandler(event:FaultEvent):void
+			{
+				Alert.show( ObjectUtil.toString(event.fault) );
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Panel title="RemoteObject Example"
+	        paddingLeft="10" paddingRight="10" paddingBottom="10" paddingTop="10"
+	        horizontalAlign="center" width="416" height="377">
+	
+		<mx:Button label="Get Guest List" click="ro.getGuestList()"/>
+		<mx:DataGrid id="dg" dataProvider="{guestListDP}" width="260" height="180">
+			<mx:columns>
+              	<mx:DataGridColumn headerText="Guest Name" dataField="guestName"  />
+      		</mx:columns>
+		</mx:DataGrid>
+	</mx:Panel>
+</mx:Application>

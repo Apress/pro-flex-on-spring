@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="100%"
+	paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.af.clientmanager.control.commands.events.clientEvents.DeleteClientLinkEvent;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			import com.af.clientmanager.control.commands.events.clientEvents.InsertClientLinkEvent;
+		import com.af.clientmanager.model.vo.ClientLinksVO;
+		import com.af.clientmanager.model.ModelLocator;
+
+	  	[Bindable]
+	   	public var model : ModelLocator = ModelLocator.getInstance();
+			
+		private function addNewLink():void
+		{					
+			tiName.text = "";
+			tiUrl.text = "";
+			vsLink.selectedChild = addLinkForm;
+		}
+		private function deleteLink():void
+		{
+			CairngormEventDispatcher.getInstance().dispatchEvent(new DeleteClientLinkEvent(ClientLinksVO(dgLinks.selectedItem)));
+		}
+		private function saveLink():void
+		{
+			var link:ClientLinksVO = new ClientLinksVO();
+			
+			link.assocobjectID = model.selectedClient.objectIdentifier;
+			link.linkName = tiName.text;
+			link.url = tiUrl.text;
+			
+			CairngormEventDispatcher.getInstance().dispatchEvent(new InsertClientLinkEvent(link));
+			
+			vsLink.selectedChild = linkList;
+		}
+		private function openWebSite(URL:String):void
+		{
+			var u:URLRequest = new URLRequest(URL); 
+			navigateToURL(u,"_blank");
+		}
+		]]>
+	</mx:Script>
+	
+	<mx:HBox>
+		<mx:Button width="30" height="25" icon="@Embed(source='assets/images/icon_plus.png')" toolTip="Add a new link" 
+			click="addNewLink()"/>
+		<mx:Button width="30" height="25" icon="@Embed(source='assets/images/icon_minus.png')" toolTip="Delete the selected link" 
+			click="deleteLink()"/>
+	</mx:HBox>
+	<mx:ViewStack id="vsLink" width="100%" height="100%">
+		<mx:VBox id="linkList" width="100%" height="100%" >
+			<mx:DataGrid id="dgLinks" width="100%" height="100%" dataProvider="{model.linksDP}" >
+			 	<mx:columns>
+					<mx:DataGridColumn dataField="linkName" headerText="Name" />
+					<mx:DataGridColumn dataField="url" headerText="Link" />
+				</mx:columns>
+			</mx:DataGrid>
+		</mx:VBox>
+		<mx:VBox id="addLinkForm" width="100%" height="100%" >
+			<mx:Form width="100%">
+		        <mx:FormItem label="Name" required="true" width="100%">
+		            <mx:TextInput id="tiName" width="100%" height="30" text="{dgLinks.selectedItem.linkName}"/>
+		        </mx:FormItem>
+		        <mx:FormItem label="URL" width="100%">
+		            <mx:TextInput id="tiUrl" width="100%" text="{dgLinks.selectedItem.url}" />
+		        </mx:FormItem>
+		        <mx:FormItem width="100%">
+		            <mx:HBox width="100%" horizontalAlign="right">
+				    	<mx:Button label="Cancel"
+							click="{vsLink.selectedChild=linkList}"/>
+						<mx:Button label="Save" click="saveLink()"/>
+				    </mx:HBox>
+		        </mx:FormItem>
+		    </mx:Form>
+		</mx:VBox>
+	</mx:ViewStack>	
+</mx:VBox>

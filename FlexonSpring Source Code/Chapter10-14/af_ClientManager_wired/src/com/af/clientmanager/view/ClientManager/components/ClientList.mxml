@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	height="100%"
+	xmlns:Renderers="com.af.clientmanager.view.Renderers.*"
+	creationComplete="initComp()">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			import com.af.clientmanager.control.commands.events.GetClientsEvent;
+			import com.af.clientmanager.model.ModelLocator;
+		
+			[Bindable] 
+			private var model:ModelLocator = ModelLocator.getInstance();
+			
+			private function initComp():void
+			{
+				CairngormEventDispatcher.getInstance().dispatchEvent(new GetClientsEvent());
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:VBox width="278" height="100%">  
+		<mx:Repeater id="rp" dataProvider="{model.clientsDP}">
+			<Renderers:ClientListRenderer clientData="{rp.currentItem}"/>		
+		</mx:Repeater>
+	</mx:VBox>
+</mx:Canvas>
